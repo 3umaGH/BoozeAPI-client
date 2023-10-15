@@ -5,7 +5,10 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import { CardActionArea } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Collapse from "@mui/material/Collapse";
 import Skeleton from "@mui/material/Skeleton";
+import Divider from "@mui/material/Divider";
 
 import LiquorIcon from "@mui/icons-material/Liquor";
 import WineBarOutlinedIcon from "@mui/icons-material/WineBarOutlined";
@@ -14,6 +17,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 import { Box } from "@mui/material";
 import Image from "./Image";
@@ -34,9 +38,40 @@ const fetchCocktail = async (useRandom, id) => {
   return data;
 };
 
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
+
 const Cocktail = ({ getRandom, id }) => {
   const [cocktailData, setCocktailData] = useState(undefined);
+  const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
+  const cocktailIngredients = [];
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const parseIngredients = (data) => {
+    const ingredients = [];
+
+    for (let i = 1; i <= 15; i++) {
+      const ingredient = data.drinks[0][`strIngredient${i}`];
+      if (ingredient != null) {
+        ingredients.push(ingredient + " : " + data.drinks[0][`strMeasure${i}`])
+      };
+    }
+    console.log("parsed ", ingredients.length);
+
+    return ingredients;
+  };
 
   useEffect(() => {
     fetchCocktail(getRandom, id).then((data) => {
@@ -47,8 +82,8 @@ const Cocktail = ({ getRandom, id }) => {
 
   return (
     <Box sx={{ width: "300px", mt: 2, mr: 1 }}>
-      <CardActionArea>
-        <Card sx={{ height: "380px" }}>
+      <CardActionArea onClick={handleExpandClick}>
+        <Card sx={{}}>
           <CardContent>
             <Typography
               variant="h5"
@@ -106,8 +141,43 @@ const Cocktail = ({ getRandom, id }) => {
             <IconButton aria-label="share">
               <ShareIcon />
             </IconButton>
-            <ExpandMoreIcon aria-label="expand" sx={{ ml: "auto" }} />
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
           </CardActions>
+          {!loading && (
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <CardContent align="center">
+                <Typography variant="h6" paragraph>
+                  Ingredients:
+                </Typography>
+                {parseIngredients(cocktailData).map((ingredient, index) => (
+                  <Typography variant="body2" key={index} sx={{ mb: 2 }}>
+                    <FiberManualRecordIcon
+                      sx={{ fontSize: 10 }}
+                      color="action"
+                      fontSize="small"
+                    />{" "}
+                    {ingredient}
+                  </Typography>
+                ))}
+
+                <Divider />
+                  <Typography sx={{ mt: 2 }} variant="h6" paragraph>
+                    Instructions:
+                  </Typography>
+                  <Typography variant="body2">
+                    {cocktailData.drinks[0].strInstructions}
+                  </Typography>
+                  
+              </CardContent>
+            </Collapse>
+          )}
         </Card>
       </CardActionArea>
     </Box>

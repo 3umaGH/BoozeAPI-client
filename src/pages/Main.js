@@ -18,11 +18,7 @@ function Main() {
         }}
       >
         <Cocktail getRandom={true} />
-        <Cocktail getRandom={true} />
-        <Cocktail getRandom={true} />
-        <Cocktail getRandom={true} />
-        <Cocktail getRandom={true} />
-        <Cocktail getRandom={true} />
+ 
 
         
       </Box>
