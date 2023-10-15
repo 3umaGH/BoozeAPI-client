@@ -1,7 +1,6 @@
 import { Box, Container } from "@mui/material";
 
 import Navbar from "../components/Navbar";
-import App from "../App";
 import Cocktail from "../components/cocktail/Cocktail";
 
 function Main() {
@@ -17,6 +16,9 @@ function Main() {
           flexWrap: "wrap",
         }}
       >
+        <Cocktail getRandom={true} />
+        <Cocktail getRandom={true} />
+        <Cocktail getRandom={true} />
         <Cocktail getRandom={true} />
  
 

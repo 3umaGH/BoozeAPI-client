@@ -53,8 +53,6 @@ const Cocktail = ({ getRandom, id }) => {
   const [cocktailData, setCocktailData] = useState(undefined);
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
-  const cocktailIngredients = [];
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -64,8 +62,14 @@ const Cocktail = ({ getRandom, id }) => {
 
     for (let i = 1; i <= 15; i++) {
       const ingredient = data.drinks[0][`strIngredient${i}`];
+
       if (ingredient != null) {
-        ingredients.push(ingredient + " : " + data.drinks[0][`strMeasure${i}`])
+        let format = ingredient;
+
+        if(data.drinks[0][`strMeasure${i}`] != null)
+          format = ingredient + " : " + data.drinks[0][`strMeasure${i}`];
+
+        ingredients.push(format)
       };
     }
     console.log("parsed ", ingredients.length);
@@ -174,7 +178,7 @@ const Cocktail = ({ getRandom, id }) => {
                   <Typography variant="body2">
                     {cocktailData.drinks[0].strInstructions}
                   </Typography>
-                  
+
               </CardContent>
             </Collapse>
           )}
