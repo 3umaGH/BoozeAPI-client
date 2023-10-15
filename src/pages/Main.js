@@ -9,10 +9,22 @@ function Main() {
     <Container maxWidth={false}>
       <Navbar />
 
-      <Box display="inline-flex" flexDirection="row" alignItems="stretch" padding={3}>
+      <Box
+        style={{ width: "100%" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+        }}
+      >
         <Cocktail getRandom={true} />
         <Cocktail getRandom={true} />
         <Cocktail getRandom={true} />
+        <Cocktail getRandom={true} />
+        <Cocktail getRandom={true} />
+        <Cocktail getRandom={true} />
+
+        
       </Box>
     </Container>
   );

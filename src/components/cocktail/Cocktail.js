@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import { CardActionArea } from "@mui/material";
 import Skeleton from "@mui/material/Skeleton";
 
 import LiquorIcon from "@mui/icons-material/Liquor";
@@ -14,7 +15,8 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
 
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
+import Image from "./Image";
 
 const RANDOM_LINK = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 const SPECIFIC_ID = "www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
@@ -44,55 +46,71 @@ const Cocktail = ({ getRandom, id }) => {
   }, [getRandom, id]);
 
   return (
-    <Container sx={{ m: 2 }}>
-      <Card sx={{ maxWidth: "300px" }}>
-        <CardContent align="center">
-          <Typography variant="h5" color="text.primary" gutterBottom>
-            {loading ? <Skeleton /> : cocktailData.drinks[0].strDrink}
-          </Typography>
+    <Box sx={{ width: "300px", mt: 2, mr: 1 }}>
+      <CardActionArea>
+        <Card sx={{ height: "380px" }}>
+          <CardContent>
+            <Typography
+              variant="h5"
+              align="center"
+              whiteSpace="nowrap"
+              color="text.primary"
+              textOverflow="ellepsis"
+              overflow="hidden"
+              gutterBottom
+            >
+              {loading ? <Skeleton /> : cocktailData.drinks[0].strDrink}
+            </Typography>
 
-          {loading ? (
-            <Skeleton variant="rectangular" sx={{ maxWidth: "100%" }} />
-          ) : (
-            <Box>
-              <img
-                src={cocktailData.drinks[0].strDrinkThumb}
-                alt="Cocktail"
-                style={{ maxWidth: "100%", borderRadius: "5%" }}
-              ></img>
+            {loading ? (
+              <Skeleton variant="rectangular" sx={{ height: "230px" }} />
+            ) : (
+              <Box align="center">
+                <Image
+                  src={cocktailData.drinks[0].strDrinkThumb}
+                  alt={"Cocktail"}
+                  style={{
+                    width: "200px",
+                    borderRadius: "5%",
+                  }}
+                />
 
-              <Box sx={{ mt: 2 }}>
-                {cocktailData.drinks[0].strAlcoholic === "Alcoholic" ? (
-                  <LiquorIcon fontSize="small" color="error" />
-                ) : (
-                  <LiquorIcon fontSize="small" color="success" />
-                )}
+                <Box
+                  sx={{
+                    display: "flex",
+                    mt: 1,
+                  }}
+                >
+                  {cocktailData.drinks[0].strAlcoholic === "Alcoholic" ? (
+                    <LiquorIcon fontSize="small" color="error" />
+                  ) : (
+                    <LiquorIcon fontSize="small" color="success" />
+                  )}
 
-                <Typography variant="subtitle2">
-                  {cocktailData.drinks[0].strAlcoholic}
-                </Typography>
+                  <Typography sx={{ ml: 0.5 }} variant="caption">
+                    {cocktailData.drinks[0].strAlcoholic}
+                  </Typography>
+
+                  <WineBarOutlinedIcon sx={{ ml: "auto" }} fontSize="small" />
+                  <Typography variant="caption">
+                    {cocktailData.drinks[0].strGlass}
+                  </Typography>
+                </Box>
               </Box>
-
-              <Box sx={{ mt: 1 }}>
-                <WineBarOutlinedIcon fontSize="small" />
-                <Typography variant="subtitle2">
-                  {cocktailData.drinks[0].strGlass}
-                </Typography>
-              </Box>
-            </Box>
-          )}
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-          <ExpandMoreIcon aria-label="expand" sx={{ml:"auto"}} />
-        </CardActions>
-      </Card>
-    </Container>
+            )}
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
+            <ExpandMoreIcon aria-label="expand" sx={{ ml: "auto" }} />
+          </CardActions>
+        </Card>
+      </CardActionArea>
+    </Box>
   );
 };
 
