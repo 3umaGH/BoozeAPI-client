@@ -21,6 +21,7 @@ import SearchBar from "./SearchBar";
 const pages = [
   { name: "Popular Cocktails", path: "/" },
   { name: "Random Cocktails", path: "/random" },
+  { name: "Search", path: "/search" },
 ];
 
 function Navbar() {

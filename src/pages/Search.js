@@ -4,28 +4,39 @@ import { useLocation } from "react-router-dom";
 
 import CocktailList from "../components/cocktail/CocktailList";
 import Layout from "../components/Layout/Layout";
-import { fetchCocktailsByName } from "../workers/CocktailService";
+import { fetchCocktailsBy } from "../workers/CocktailService";
+import SearchBar from "./SearchBar";
 
 function Search() {
   const [cocktailData, setCocktailData] = useState();
 
   const { search } = useLocation();
   const params = new URLSearchParams(search);
-  const query = params.get("query");
+  const query = params.get("name");
 
   useEffect(() => {
-    if (query !== undefined)
-      fetchCocktailsByName(query).then((data) => {
-
+    /* if (query !== undefined)
+      fetchCocktailsBy(query).then((data) => {
         setCocktailData(data);
-        console.log(data)
-
-
-      });
+      });*/
   }, [query]);
+
+  const handleSearchQueryUpdate = (
+    category,
+    glassType,
+    ingredients,
+    alcoholic
+  ) => {
+    fetchCocktailsBy(undefined, category, glassType, undefined, alcoholic).then(
+      (data) => {
+        setCocktailData(data);
+      }
+    );
+  };
 
   return (
     <Layout>
+      <SearchBar queryCallback={handleSearchQueryUpdate} />
       <Box
         style={{ width: "100%" }}
         sx={{

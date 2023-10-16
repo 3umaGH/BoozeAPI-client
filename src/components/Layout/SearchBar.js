@@ -11,7 +11,7 @@ const SearchBar = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate(`/search?query=${searchQuery}`);
+    navigate(`/search?name=${searchQuery}`);
   };
 
   return (

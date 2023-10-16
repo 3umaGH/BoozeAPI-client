@@ -13,7 +13,10 @@ const Image = (props) => {
   return (
     <div>
       {!imageLoaded && (
-        <Skeleton variant="rectangular" sx={{ height: "200px" }} />
+        <Skeleton
+          variant="rectangular"
+          sx={{ width: "auto", height: "200px" }}
+        />
       )}
 
       <img

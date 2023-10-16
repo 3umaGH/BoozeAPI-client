@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
-
+import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 import {
   Box,
   Typography,
@@ -91,7 +91,6 @@ const Cocktail = ({ drink }) => {
                   ) : (
                     <LiquorIcon fontSize="small" color="success" />
                   )}
-
                   <Typography sx={{ ml: 0.5 }} variant="caption">
                     {drinkData.strAlcoholic}
                   </Typography>
@@ -111,6 +110,21 @@ const Cocktail = ({ drink }) => {
             <IconButton aria-label="share">
               <ShareIcon />
             </IconButton>
+
+
+            <Typography
+                sx={{
+                  m: "auto",
+                  p: 0.5,
+                  border: 1,
+                  borderColor: "primary.main",
+                }}
+                variant="subtitle2"
+              >
+            {loading ? <Skeleton /> : drinkData.strCategory}
+            </Typography>
+            
+
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}
