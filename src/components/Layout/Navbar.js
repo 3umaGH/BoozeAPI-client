@@ -134,7 +134,10 @@ function Navbar() {
           </Box>
 
           <Box sx={{ display: { xs: "none", md: "flex" }}}>
-            <SearchBar />
+           
+              <SearchBar/>
+
+
           </Box>
         </Toolbar>
       </Container>

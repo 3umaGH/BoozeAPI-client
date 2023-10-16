@@ -5,7 +5,8 @@ import { useLocation } from "react-router-dom";
 import CocktailList from "../components/cocktail/CocktailList";
 import Layout from "../components/Layout/Layout";
 import { fetchCocktailsBy } from "../workers/CocktailService";
-import SearchBar from "./SearchBar";
+import SearchBar from "../components/Layout/QuerySearch";
+import CocktailTable from "../components/cocktail/CocktailTable";
 
 function Search() {
   const [cocktailData, setCocktailData] = useState();
@@ -37,19 +38,24 @@ function Search() {
   return (
     <Layout>
       <SearchBar queryCallback={handleSearchQueryUpdate} />
+
       <Box
         style={{ width: "100%" }}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-        }}
+        align="center"
+  
       >
         {cocktailData === undefined || cocktailData.drinks === null ? (
           <h1>No results according to your search query.</h1>
         ) : (
-          <CocktailList data={cocktailData} />
+          <CocktailTable data={cocktailData}></CocktailTable>
         )}
+        
+        {/*
+        {cocktailData === undefined || cocktailData.drinks === null ? (
+          <h1>No results according to your search query.</h1>
+        ) : (
+          <CocktailList data={cocktailData} />
+        )}*/}
       </Box>
     </Layout>
   );

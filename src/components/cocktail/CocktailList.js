@@ -20,7 +20,7 @@ const CocktailList = ({ fetchPromise, data }) => {
             <CocktailCard key={drink.idDrink} drink={drink}></CocktailCard>
           );
         })}
-      <div></div>
+
     </>
   );
 };

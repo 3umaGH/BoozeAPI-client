@@ -4,10 +4,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 
-import { fetchSearchParameters } from "../workers/CocktailService";
+import { fetchSearchParameters } from "../../workers/CocktailService";
 import { useEffect, useState } from "react";
 
-const SearchBar = ({ queryCallback }) => {
+const QuerySearch = ({ queryCallback }) => {
   const [availableSearchParams, setAvailableSearchParams] = useState({
     category: [],
     glassType: [],
@@ -132,4 +132,4 @@ const SearchBar = ({ queryCallback }) => {
   );
 };
 
-export default SearchBar;
+export default QuerySearch;
