@@ -1,42 +1,28 @@
 import { useState, useEffect } from "react";
 
+import { styled } from "@mui/material/styles";
+import { Box } from "@mui/material";
+
 import Typography from "@mui/material/Typography";
+
 import Card from "@mui/material/Card";
+import { CardActionArea } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import { CardActionArea } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import Collapse from "@mui/material/Collapse";
 import Skeleton from "@mui/material/Skeleton";
 import Divider from "@mui/material/Divider";
 
 import LiquorIcon from "@mui/icons-material/Liquor";
 import WineBarOutlinedIcon from "@mui/icons-material/WineBarOutlined";
-
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
-import { Box } from "@mui/material";
 import Image from "./Image";
-
-const RANDOM_LINK = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-const SPECIFIC_ID = "www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
-
-const fetchCocktail = async (useRandom, id) => {
-  const link = useRandom ? RANDOM_LINK : SPECIFIC_ID + id;
-
-  const response = await fetch(link);
-
-  if (response.status !== 200)
-    throw new Error("Unable to fetch cocktail. Status: " + response.status);
-
-  const data = await response.json();
-
-  return data;
-};
+import { parseIngredients } from "../../workers/CocktailService";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -49,40 +35,19 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const Cocktail = ({ getRandom, id }) => {
-  const [cocktailData, setCocktailData] = useState(undefined);
+const Cocktail = ({ drink }) => {
+  const [drinkData, setDrinkData] = useState(undefined);
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const parseIngredients = (data) => {
-    const ingredients = [];
-
-    for (let i = 1; i <= 15; i++) {
-      const ingredient = data.drinks[0][`strIngredient${i}`];
-
-      if (ingredient != null) {
-        let format = ingredient;
-
-        if(data.drinks[0][`strMeasure${i}`] != null)
-          format = ingredient + " : " + data.drinks[0][`strMeasure${i}`];
-
-        ingredients.push(format)
-      };
-    }
-    console.log("parsed ", ingredients.length);
-
-    return ingredients;
-  };
-
   useEffect(() => {
-    fetchCocktail(getRandom, id).then((data) => {
-      setCocktailData(data);
-      setLoading(false);
-    });
-  }, [getRandom, id]);
+    setDrinkData(drink);
+    setLoading(false);
+  }, [drink]);
 
   return (
     <Box sx={{ width: "300px", mt: 2, mr: 1 }}>
@@ -98,7 +63,7 @@ const Cocktail = ({ getRandom, id }) => {
               overflow="hidden"
               gutterBottom
             >
-              {loading ? <Skeleton /> : cocktailData.drinks[0].strDrink}
+              {loading ? <Skeleton /> : drinkData.strDrink}
             </Typography>
 
             {loading ? (
@@ -106,7 +71,7 @@ const Cocktail = ({ getRandom, id }) => {
             ) : (
               <Box align="center">
                 <Image
-                  src={cocktailData.drinks[0].strDrinkThumb}
+                  src={drinkData.strDrinkThumb}
                   alt={"Cocktail"}
                   style={{
                     width: "200px",
@@ -120,19 +85,19 @@ const Cocktail = ({ getRandom, id }) => {
                     mt: 1,
                   }}
                 >
-                  {cocktailData.drinks[0].strAlcoholic === "Alcoholic" ? (
+                  {drinkData.strAlcoholic === "Alcoholic" ? (
                     <LiquorIcon fontSize="small" color="error" />
                   ) : (
                     <LiquorIcon fontSize="small" color="success" />
                   )}
 
                   <Typography sx={{ ml: 0.5 }} variant="caption">
-                    {cocktailData.drinks[0].strAlcoholic}
+                    {drinkData.strAlcoholic}
                   </Typography>
 
                   <WineBarOutlinedIcon sx={{ ml: "auto" }} fontSize="small" />
                   <Typography variant="caption">
-                    {cocktailData.drinks[0].strGlass}
+                    {drinkData.strGlass}
                   </Typography>
                 </Box>
               </Box>
@@ -160,7 +125,7 @@ const Cocktail = ({ getRandom, id }) => {
                 <Typography variant="h6" paragraph>
                   Ingredients:
                 </Typography>
-                {parseIngredients(cocktailData).map((ingredient, index) => (
+                {parseIngredients(drinkData).map((ingredient, index) => (
                   <Typography variant="body2" key={index} sx={{ mb: 2 }}>
                     <FiberManualRecordIcon
                       sx={{ fontSize: 10 }}
@@ -172,13 +137,12 @@ const Cocktail = ({ getRandom, id }) => {
                 ))}
 
                 <Divider />
-                  <Typography sx={{ mt: 2 }} variant="h6" paragraph>
-                    Instructions:
-                  </Typography>
-                  <Typography variant="body2">
-                    {cocktailData.drinks[0].strInstructions}
-                  </Typography>
-
+                <Typography sx={{ mt: 2 }} variant="h6" paragraph>
+                  Instructions:
+                </Typography>
+                <Typography variant="body2">
+                  {drinkData.strInstructions}
+                </Typography>
               </CardContent>
             </Collapse>
           )}
