@@ -1,7 +1,22 @@
 import React from "react";
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Button, MenuItem } from "@mui/material";
-import { Menu as MenuIcon, LocalBar as LocalBarIcon } from "@mui/icons-material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Button,
+  MenuItem,
+} from "@mui/material";
+import {
+  Menu as MenuIcon,
+  LocalBar as LocalBarIcon,
+} from "@mui/icons-material";
 import { Link } from "react-router-dom";
+
+import SearchBar from "./SearchBar";
 
 const pages = [
   { name: "Popular Cocktails", path: "/" },
@@ -53,6 +68,7 @@ function Navbar() {
             >
               <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -107,13 +123,17 @@ function Navbar() {
               <Button
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 2, color: "white", display: "block", flex: "none" }}
                 component={Link}
                 to={page.path}
               >
                 {page.name}
               </Button>
             ))}
+          </Box>
+
+          <Box sx={{ display: { xs: "none", md: "flex" }}}>
+            <SearchBar />
           </Box>
         </Toolbar>
       </Container>

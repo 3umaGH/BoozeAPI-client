@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 
-import CocktailList from "../components/CocktailList";
+import CocktailList from "../components/cocktail/CocktailList";
 import Layout from "../components/Layout/Layout";
 import { fetchPopularCocktails } from "../workers/CocktailService";
 

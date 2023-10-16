@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import CocktailCard from "../components/cocktail/CocktailCard";
+import CocktailCard from "./CocktailCard";
 
 const CocktailList = ({ fetchPromise, data }) => {
   const [cocktailData, setCocktailData] = useState();
