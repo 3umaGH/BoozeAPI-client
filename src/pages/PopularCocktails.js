@@ -1,13 +1,12 @@
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 
-import Navbar from "../components/Navbar";
 import CocktailList from "../components/CocktailList";
+import Layout from "../components/Layout/Layout";
+import { fetchPopularCocktails } from "../workers/CocktailService";
 
 function Main() {
   return (
-    <Container maxWidth={false}>
-      <Navbar />
-
+    <Layout>
       <Box
         style={{ width: "100%" }}
         sx={{
@@ -16,9 +15,9 @@ function Main() {
           flexWrap: "wrap",
         }}
       >
-        <CocktailList />
+        <CocktailList fetchPromise={fetchPopularCocktails()} />
       </Box>
-    </Container>
+    </Layout>
   );
 }
 

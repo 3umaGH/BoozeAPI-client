@@ -1,5 +1,5 @@
-const RANDOM_LINK = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-const SPECIFIC_ID = "www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
+const RANDOM_LINK = `https://www.thecocktaildb.com/api/json/v2/${process.env.REACT_APP_API_KEY}/random.php`;
+const SPECIFIC_ID = `https://www.thecocktaildb.com/api/json/v2/${process.env.REACT_APP_API_KEY}/lookup.php?i=`;
 
 const fetchData = async (link) => {
   const response = await fetch(link);
@@ -20,9 +20,16 @@ export const fetchCocktail = async (useRandom, id) => {
 
 export const fetchPopularCocktails = async () => {
   const link = `https://www.thecocktaildb.com/api/json/v2/${process.env.REACT_APP_API_KEY}/popular.php`;
-  
+
   return fetchData(link);
 };
+
+export const fetch10RandomCocktails = async () => {
+  const link = `https://www.thecocktaildb.com/api/json/v2/${process.env.REACT_APP_API_KEY}/randomSelection.php`;
+
+  return fetchData(link);
+};
+
 
 export const parseIngredients = (drink) => {
   const ingredients = [];

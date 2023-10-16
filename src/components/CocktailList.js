@@ -1,23 +1,25 @@
 import { useState, useEffect } from "react";
 import CocktailCard from "../components/cocktail/CocktailCard";
-import { fetchPopularCocktails } from "../workers/CocktailService";
 
-const CocktailList = () => {
+const CocktailList = ({ fetchPromise, data }) => {
   const [cocktailData, setCocktailData] = useState();
 
   useEffect(() => {
-    fetchPopularCocktails(true, null).then((data) => {
-      setCocktailData(data);
-    });
-  }, []);
+    if (data !== undefined) setCocktailData(data);
+    else
+      fetchPromise.then((data) => {
+        setCocktailData(data);
+      });
+  }, [fetchPromise, data]);
 
   return (
     <>
-      {cocktailData && (
+      {cocktailData &&
         cocktailData.drinks.map((drink) => {
-           return <CocktailCard key={drink.idDrink} drink={drink}></CocktailCard>
-        })
-      )}
+          return (
+            <CocktailCard key={drink.idDrink} drink={drink}></CocktailCard>
+          );
+        })}
       <div></div>
     </>
   );

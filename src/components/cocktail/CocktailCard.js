@@ -1,25 +1,26 @@
-import { useState, useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
-import { Box } from "@mui/material";
 
-import Typography from "@mui/material/Typography";
-
-import Card from "@mui/material/Card";
-import { CardActionArea } from "@mui/material";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Collapse from "@mui/material/Collapse";
-import Skeleton from "@mui/material/Skeleton";
-import Divider from "@mui/material/Divider";
-
-import LiquorIcon from "@mui/icons-material/Liquor";
-import WineBarOutlinedIcon from "@mui/icons-material/WineBarOutlined";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import IconButton from "@mui/material/IconButton";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import {
+  Box,
+  Typography,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  Collapse,
+  Skeleton,
+  Divider,
+  IconButton,
+} from "@mui/material";
+import {
+  Liquor as LiquorIcon,
+  WineBarOutlined as WineBarOutlinedIcon,
+  Favorite as FavoriteIcon,
+  Share as ShareIcon,
+  ExpandMore as ExpandMoreIcon,
+  FiberManualRecord as FiberManualRecordIcon,
+} from "@mui/icons-material";
 
 import Image from "./Image";
 import { parseIngredients } from "../../workers/CocktailService";
