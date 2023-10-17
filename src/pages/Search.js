@@ -7,7 +7,7 @@ import {
   fetchCocktailsBy,
   fetchCocktailsByName,
 } from "../workers/CocktailService";
-import SearchBar from "../components/Layout/QuerySearch";
+import QuerySearch from "../components/Layout/QuerySearch";
 import CocktailTable from "../components/cocktail/CocktailTable";
 
 function Search() {
@@ -35,7 +35,8 @@ function Search() {
 
   return (
     <Layout>
-      <SearchBar queryCallback={handleSearchQueryUpdate} />
+
+      <QuerySearch queryCallback={handleSearchQueryUpdate} />
 
       <Box style={{ width: "100%" }} align="center">
         {cocktailData === undefined || cocktailData.drinks === null ? (

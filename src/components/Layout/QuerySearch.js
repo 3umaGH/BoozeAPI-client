@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 
 import { fetchSearchParameters } from "../../workers/CocktailService";
+import SearchBar from "./SearchBar";
 
 const QuerySearch = ({ queryCallback }) => {
   const [availableSearchParams, setAvailableSearchParams] = useState({
@@ -80,7 +81,11 @@ const QuerySearch = ({ queryCallback }) => {
 
   return (
     <Container align="center" sx={{ mt: 3 }}>
-      <Typography variant="h6">Search by parameter</Typography>
+      <Typography variant="h6" sx={{ mb: 1 }}>
+        Search by parameter
+      </Typography>
+
+      <SearchBar />
 
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel>Category</InputLabel>

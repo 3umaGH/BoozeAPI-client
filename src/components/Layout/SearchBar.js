@@ -3,7 +3,7 @@ import { Container, IconButton, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 
-const SearchBar = () => {
+const SearchBar = ({ iconColor }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
@@ -13,12 +13,7 @@ const SearchBar = () => {
   };
 
   return (
-    <Container
-      sx={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
+    <Container>
       <form onSubmit={submitHandler}>
         <TextField
           id="search-bar"
@@ -30,8 +25,8 @@ const SearchBar = () => {
           size="small"
           sx={{ borderRadius: "5px", backgroundColor: "white" }}
         />
-        <IconButton type="submit" aria-label="search">
-          <SearchIcon style={{ fill: "white" }} />
+        <IconButton type="submit" aria-label="search" sx={{ ml: -5 }}>
+          <SearchIcon style={{ fill: `${iconColor}` }} />
         </IconButton>
       </form>
     </Container>
