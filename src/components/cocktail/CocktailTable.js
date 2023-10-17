@@ -6,10 +6,21 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import CocktailTableItem from "./CocktailTableItem";
-import { CardActionArea, Container, Typography } from "@mui/material";
+import CocktailCard from "./CocktailCard";
+
+import { CardActionArea, Container, Typography, Box } from "@mui/material";
+
+import { fetchCocktail } from "../../workers/CocktailService";
+import Modal from "../Layout/Modal/Modal";
+import Backdrop from "../Layout/Modal/Backdrop";
 
 const CocktailTable = ({ fetchPromise, data }) => {
   const [cocktailData, setCocktailData] = useState();
+  const [viewingCocktail, setViewingCocktail] = useState();
+
+  const closeModal = () => {
+    setViewingCocktail(null);
+  };
 
   useEffect(() => {
     if (data !== undefined) setCocktailData(data);
@@ -20,8 +31,26 @@ const CocktailTable = ({ fetchPromise, data }) => {
     }
   }, [fetchPromise, data]);
 
+  const handleRowClick = (e, drinkId) => {
+    fetchCocktail(false, drinkId).then((data) =>
+      setViewingCocktail(data.drinks[0])
+    );
+  };
+
   return (
-    <Container>
+    <Container align="center">
+      {viewingCocktail && (
+        <Modal closeCallback={closeModal}>
+          <CocktailCard
+            key={viewingCocktail.idDrink}
+            drink={viewingCocktail}
+            isExpanded={true}
+          ></CocktailCard>
+        </Modal>
+      )}
+
+      {viewingCocktail && <Backdrop onClick={closeModal} />}
+
       <Table>
         <TableHead>
           <TableRow>
@@ -30,18 +59,19 @@ const CocktailTable = ({ fetchPromise, data }) => {
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody >
-            
+        <TableBody>
           {cocktailData &&
             cocktailData.drinks.map((drink) => {
               return (
-                <CardActionArea>
-                <CocktailTableItem 
-                  key={drink.idDrink}
-                  name={drink.strDrink}
-                  thumb={drink.strDrinkThumb}
-                  drinkId={drink.idDrink}
-                />
+                <CardActionArea
+                  onClick={(e) => handleRowClick(e, drink.idDrink)}
+                >
+                  <CocktailTableItem
+                    key={drink.idDrink}
+                    name={drink.strDrink}
+                    thumb={drink.strDrinkThumb}
+                    drinkId={drink.idDrink}
+                  />
                 </CardActionArea>
               );
             })}

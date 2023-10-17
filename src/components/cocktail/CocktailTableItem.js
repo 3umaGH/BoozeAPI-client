@@ -1,7 +1,7 @@
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import Image from "./Image";
-import { CardActionArea, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 const CocktailTableItem = ({ name, thumb, drinkId }) => {
   return (

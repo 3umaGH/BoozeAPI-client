@@ -36,7 +36,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const Cocktail = ({ drink }) => {
+const Cocktail = ({ drink, isExpanded}) => {
   const [drinkData, setDrinkData] = useState(undefined);
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -47,8 +47,9 @@ const Cocktail = ({ drink }) => {
 
   useEffect(() => {
     setDrinkData(drink);
+    setExpanded(isExpanded);
     setLoading(false);
-  }, [drink]);
+  }, [drink, isExpanded]);
 
   return (
     <Box sx={{ width: "300px", mt: 2, mr: 1 }}>

@@ -15,7 +15,7 @@ export const fetchCocktail = async (useRandom, id) => {
   const link = useRandom
     ? `${BASE_PATH}/random.php`
     : `${BASE_PATH}/lookup.php?i=${id}`;
-
+    
   return fetchData(link);
 };
 
@@ -26,15 +26,12 @@ export const fetchCocktailsByName = async (name) => {
 };
 
 export const fetchCocktailsBy = async (
-  name,
   category,
   glass,
   ingredients,
   alcoholic
 ) => {
   let queryParams = [];
-
-  if (name !== undefined && name !== "") queryParams.push(`s=${name}`);
 
   if (category !== undefined && category !== "")
     queryParams.push(`c=${category}`);
@@ -80,7 +77,7 @@ export const fetchSearchParameters = async () => {
 
       resolve(result);
     } catch (error) {
-      reject("Error fetching data:", error);
+      reject("Error fetching search parameters data:", error);
     }
   });
 };
