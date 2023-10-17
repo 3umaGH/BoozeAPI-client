@@ -10,7 +10,7 @@ const Modal = ({ closeCallback, ...props }) => {
     left: "calc(50% - 10rem)",
     maxHeight: "80vh",
     overflowY: "auto",
-    overflowX: "none",
+    overflowX: "hidden",
 
     scrollbarWidth: "none", // Hide the scrollbar for firefox
     "&::WebkitScrollbar": {
