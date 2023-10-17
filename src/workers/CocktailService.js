@@ -92,7 +92,7 @@ export const parseIngredients = (drink) => {
       let format = ingredient;
 
       if (drink[`strMeasure${i}`] != null)
-        format = ingredient + " : " + drink[`strMeasure${i}`];
+        format = drink[`strMeasure${i}`] + " " + ingredient
 
       ingredients.push(format);
     }
