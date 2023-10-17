@@ -4,7 +4,6 @@ import {
   Box,
   Typography,
   Card,
-  CardActionArea,
   CardActions,
   CardContent,
   Collapse,
@@ -53,115 +52,115 @@ const Cocktail = ({ drink, isExpanded }) => {
 
   return (
     <Box sx={{ width: "300px", mt: 2, mr: 1 }}>
-      <CardActionArea onClick={handleExpandClick}>
-        <Card sx={{}}>
-          <CardContent>
-            <Typography
-              variant="h5"
+      <Card sx={{}}>
+        <CardContent>
+          <Typography
+            variant="h5"
+            align="center"
+            whiteSpace="nowrap"
+            color="text.primary"
+            textOverflow="ellepsis"
+            overflow="hidden"
+            gutterBottom
+          >
+            {loading ? <Skeleton /> : drinkData.strDrink}
+          </Typography>
+
+          {loading ? (
+            <Skeleton variant="rectangular" sx={{ height: "230px" }} />
+          ) : (
+            <Box
               align="center"
-              whiteSpace="nowrap"
-              color="text.primary"
-              textOverflow="ellepsis"
-              overflow="hidden"
-              gutterBottom
-            >
-              {loading ? <Skeleton /> : drinkData.strDrink}
-            </Typography>
-
-            {loading ? (
-              <Skeleton variant="rectangular" sx={{ height: "230px" }} />
-            ) : (
-              <Box align="center">
-                <Image
-                  src={drinkData.strDrinkThumb}
-                  alt={"Cocktail"}
-                  style={{
-                    width: "200px",
-                    borderRadius: "5%",
-                  }}
-                />
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    mt: 1,
-                  }}
-                >
-                  {drinkData.strAlcoholic === "Alcoholic" ? (
-                    <LiquorIcon fontSize="small" color="error" />
-                  ) : (
-                    <LiquorIcon fontSize="small" color="success" />
-                  )}
-                  <Typography sx={{ ml: 0.5 }} variant="caption">
-                    {drinkData.strAlcoholic}
-                  </Typography>
-
-                  <WineBarOutlinedIcon sx={{ ml: "auto" }} fontSize="small" />
-                  <Typography variant="caption">
-                    {drinkData.strGlass}
-                  </Typography>
-                </Box>
-              </Box>
-            )}
-          </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
-
-            <Typography
-              sx={{
-                m: "auto",
-                p: 0.5,
-                border: 1,
-                borderColor: "primary.main",
-              }}
-              variant="subtitle2"
-            >
-              {loading ? <Skeleton /> : drinkData.strCategory}
-            </Typography>
-
-            <ExpandMore
-              expand={expanded}
               onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
+              sx={{ cursor: "pointer" }}
             >
-              <ExpandMoreIcon />
-            </ExpandMore>
-          </CardActions>
-          {!loading && (
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-              <CardContent align="center">
-                <Typography variant="h6" paragraph>
-                  Ingredients:
-                </Typography>
-                {parseIngredients(drinkData).map((ingredient, index) => (
-                  <Typography variant="body2" key={index} sx={{ mb: 2 }}>
-                    <FiberManualRecordIcon
-                      sx={{ fontSize: 10 }}
-                      color="action"
-                      fontSize="small"
-                    />{" "}
-                    {ingredient}
-                  </Typography>
-                ))}
+              <Image
+                src={drinkData.strDrinkThumb}
+                alt={"Cocktail"}
+                style={{
+                  width: "200px",
+                  borderRadius: "5%",
+                }}
+              />
 
-                <Divider />
-                <Typography sx={{ mt: 2 }} variant="h6" paragraph>
-                  Instructions:
+              <Box
+                sx={{
+                  display: "flex",
+                  mt: 1,
+                }}
+              >
+                {drinkData.strAlcoholic === "Alcoholic" ? (
+                  <LiquorIcon fontSize="small" color="error" />
+                ) : (
+                  <LiquorIcon fontSize="small" color="success" />
+                )}
+                <Typography sx={{ ml: 0.5 }} variant="caption">
+                  {drinkData.strAlcoholic}
                 </Typography>
-                <Typography variant="body2">
-                  {drinkData.strInstructions}
-                </Typography>
-              </CardContent>
-            </Collapse>
+
+                <WineBarOutlinedIcon sx={{ ml: "auto" }} fontSize="small" />
+                <Typography variant="caption">{drinkData.strGlass}</Typography>
+              </Box>
+            </Box>
           )}
-        </Card>
-      </CardActionArea>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+
+          <Typography
+            sx={{
+              m: "auto",
+              p: 0.5,
+              border: 1,
+              borderColor: "primary.main",
+            }}
+            variant="subtitle2"
+          >
+            {loading ? <Skeleton /> : drinkData.strCategory}
+          </Typography>
+
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </CardActions>
+        {!loading && (
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent align="center">
+              <Typography variant="h6" paragraph>
+                Ingredients:
+              </Typography>
+              {parseIngredients(drinkData).map((ingredient, index) => (
+                <Typography variant="body2" key={index} sx={{ mb: 2 }}>
+                  <FiberManualRecordIcon
+                    sx={{ fontSize: 10 }}
+                    color="action"
+                    fontSize="small"
+                  />{" "}
+                  {ingredient}
+                </Typography>
+              ))}
+
+              <Divider />
+              <Typography sx={{ mt: 2 }} variant="h6" paragraph>
+                Instructions:
+              </Typography>
+              <Typography variant="body2">
+                {drinkData.strInstructions}
+              </Typography>
+            </CardContent>
+          </Collapse>
+        )}
+      </Card>
     </Box>
   );
 };

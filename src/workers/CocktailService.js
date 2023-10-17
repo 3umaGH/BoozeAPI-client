@@ -47,7 +47,6 @@ export const fetchCocktailsBy = async (
   const queryString = queryParams.join("&");
   const link = `${BASE_PATH}/filter.php${queryString ? `?${queryString}` : ""}`;
 
-  console.log(link.replace(" ", "%20"));
   return fetchData(link.replace(" ", "%20"));
 };
 

@@ -3,7 +3,7 @@ import Image from "./Image";
 
 const CocktailTableItem = ({ name, thumb, drinkId, onClick }) => {
   return (
-    <TableRow onClick={onClick} hover={true}>
+    <TableRow onClick={onClick} sx={{ cursor: 'pointer' }} hover={true}>
       <TableCell align="center">
           <Image
             src={`${thumb}/preview`}

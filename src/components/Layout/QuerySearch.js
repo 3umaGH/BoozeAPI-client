@@ -5,6 +5,7 @@ import {
   MenuItem,
   Select,
   FormControl,
+  Typography,
 } from "@mui/material";
 
 import { fetchSearchParameters } from "../../workers/CocktailService";
@@ -78,7 +79,9 @@ const QuerySearch = ({ queryCallback }) => {
   }, [categoryQuery, glassTypeQuery, ingredientsQuery, alcoholicQuery]);
 
   return (
-    <Container align="center">
+    <Container align="center" sx={{ mt: 3 }}>
+      <Typography variant="h6">Search by parameter</Typography>
+
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel>Category</InputLabel>
         <Select
