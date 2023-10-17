@@ -1,15 +1,15 @@
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 
 import Navbar from "../../components/Layout/Navbar";
 import Footer from "../../components/Layout/Footer";
 
 const Layout = (props) => {
   return (
-    <Container maxWidth={false}>
+    <Box>
       <Navbar />
       {props.children}
       <Footer />
-    </Container>
+    </Box>
   );
 };
 
