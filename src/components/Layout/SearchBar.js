@@ -28,7 +28,7 @@ const SearchBar = () => {
           placeholder="Search cocktails"
           variant="outlined"
           size="small"
-          sx={{ backgroundColor: "white" }}
+          sx={{ borderRadius: "5px", backgroundColor: "white" }}
         />
         <IconButton type="submit" aria-label="search">
           <SearchIcon style={{ fill: "white" }} />
