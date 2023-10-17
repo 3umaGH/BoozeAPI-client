@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
-
-import CocktailList from "../components/cocktail/CocktailList";
 import Layout from "../components/Layout/Layout";
+import CocktailList from "../components/cocktail/CocktailList";
 import { fetch10RandomCocktails } from "../workers/CocktailService";
 
 const RandomCocktails = () => {

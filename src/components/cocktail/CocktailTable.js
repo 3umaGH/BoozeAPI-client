@@ -1,18 +1,20 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import React, { useState, useEffect } from "react";
+import {
+  Container,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  CardActionArea,
+} from "@mui/material";
 import CocktailTableItem from "./CocktailTableItem";
 import CocktailCard from "./CocktailCard";
-
-import { CardActionArea, Container, Typography, Box } from "@mui/material";
-
-import { fetchCocktail } from "../../workers/CocktailService";
 import Modal from "../Layout/Modal/Modal";
 import Backdrop from "../Layout/Modal/Backdrop";
+
+import { fetchCocktail } from "../../workers/CocktailService";
 
 const CocktailTable = ({ fetchPromise, data }) => {
   const [cocktailData, setCocktailData] = useState();

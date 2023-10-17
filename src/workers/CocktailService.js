@@ -15,7 +15,7 @@ export const fetchCocktail = async (useRandom, id) => {
   const link = useRandom
     ? `${BASE_PATH}/random.php`
     : `${BASE_PATH}/lookup.php?i=${id}`;
-    
+
   return fetchData(link);
 };
 
@@ -92,7 +92,7 @@ export const parseIngredients = (drink) => {
       let format = ingredient;
 
       if (drink[`strMeasure${i}`] != null)
-        format = drink[`strMeasure${i}`] + " " + ingredient
+        format = drink[`strMeasure${i}`] + " " + ingredient;
 
       ingredients.push(format);
     }

@@ -35,7 +35,6 @@ const Footer = () => {
           fontWeight: 700,
           fontSize: 10,
           textDecoration: "none",
-
         }}
       >
         © 2023 3uma. All Rights Reserved.

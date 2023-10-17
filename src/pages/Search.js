@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
@@ -12,7 +12,7 @@ import CocktailTable from "../components/cocktail/CocktailTable";
 
 function Search() {
   const [cocktailData, setCocktailData] = useState();
-  
+
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const query = params.get("name");
@@ -20,7 +20,6 @@ function Search() {
   useEffect(() => {
     if (query !== undefined)
       fetchCocktailsByName(query).then((data) => setCocktailData(data));
-
   }, [query]);
 
   const handleSearchQueryUpdate = (
@@ -36,7 +35,7 @@ function Search() {
 
   return (
     <Layout>
-      <SearchBar queryCallback={handleSearchQueryUpdate}/>
+      <SearchBar queryCallback={handleSearchQueryUpdate} />
 
       <Box style={{ width: "100%" }} align="center">
         {cocktailData === undefined || cocktailData.drinks === null ? (

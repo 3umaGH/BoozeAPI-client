@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
-import ClassOutlinedIcon from "@mui/icons-material/ClassOutlined";
 import {
   Box,
   Typography,
@@ -9,10 +8,11 @@ import {
   CardActions,
   CardContent,
   Collapse,
-  Skeleton,
   Divider,
   IconButton,
+  Skeleton,
 } from "@mui/material";
+
 import {
   Liquor as LiquorIcon,
   WineBarOutlined as WineBarOutlinedIcon,
@@ -36,7 +36,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const Cocktail = ({ drink, isExpanded}) => {
+const Cocktail = ({ drink, isExpanded }) => {
   const [drinkData, setDrinkData] = useState(undefined);
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -112,19 +112,17 @@ const Cocktail = ({ drink, isExpanded}) => {
               <ShareIcon />
             </IconButton>
 
-
             <Typography
-                sx={{
-                  m: "auto",
-                  p: 0.5,
-                  border: 1,
-                  borderColor: "primary.main",
-                }}
-                variant="subtitle2"
-              >
-            {loading ? <Skeleton /> : drinkData.strCategory}
+              sx={{
+                m: "auto",
+                p: 0.5,
+                border: 1,
+                borderColor: "primary.main",
+              }}
+              variant="subtitle2"
+            >
+              {loading ? <Skeleton /> : drinkData.strCategory}
             </Typography>
-            
 
             <ExpandMore
               expand={expanded}

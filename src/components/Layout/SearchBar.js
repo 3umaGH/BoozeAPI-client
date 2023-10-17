@@ -1,8 +1,6 @@
-import IconButton from "@mui/material/IconButton";
+import React, { useState } from "react";
+import { Container, IconButton, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import TextField from "@mui/material/TextField";
-import { Container } from "@mui/material";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {

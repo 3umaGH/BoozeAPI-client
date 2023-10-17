@@ -1,11 +1,13 @@
-import { Container, InputLabel } from "@mui/material";
-
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import FormControl from "@mui/material/FormControl";
+import React, { useState, useEffect } from "react";
+import {
+  Container,
+  InputLabel,
+  MenuItem,
+  Select,
+  FormControl,
+} from "@mui/material";
 
 import { fetchSearchParameters } from "../../workers/CocktailService";
-import { useEffect, useState } from "react";
 
 const QuerySearch = ({ queryCallback }) => {
   const [availableSearchParams, setAvailableSearchParams] = useState({

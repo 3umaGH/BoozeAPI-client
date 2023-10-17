@@ -12,11 +12,7 @@ const Modal = ({ closeCallback, ...props }) => {
     overflowY: "auto",
   };
 
-  return (
-    <Box style={style}>
-      {props.children}
-    </Box>
-  );
+  return <Box style={style}>{props.children}</Box>;
 };
 
 export default Modal;

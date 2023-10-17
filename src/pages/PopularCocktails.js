@@ -1,7 +1,7 @@
+import React from "react";
 import { Box } from "@mui/material";
-
-import CocktailList from "../components/cocktail/CocktailList";
 import Layout from "../components/Layout/Layout";
+import CocktailList from "../components/cocktail/CocktailList";
 import { fetchPopularCocktails } from "../workers/CocktailService";
 
 function Main() {

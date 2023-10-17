@@ -133,11 +133,8 @@ function Navbar() {
             ))}
           </Box>
 
-          <Box sx={{ display: { xs: "none", md: "flex" }}}>
-           
-              <SearchBar/>
-
-
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <SearchBar />
           </Box>
         </Toolbar>
       </Container>
