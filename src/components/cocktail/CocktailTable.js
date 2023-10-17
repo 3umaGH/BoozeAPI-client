@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Container,
-  Typography,
   Table,
   TableBody,
   TableCell,
