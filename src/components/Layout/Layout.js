@@ -5,7 +5,7 @@ import Footer from "../../components/Layout/Footer";
 
 const Layout = (props) => {
   return (
-    <Box>
+    <Box sx={{ mt: 10 }}>
       <Navbar />
       {props.children}
       <Footer />
