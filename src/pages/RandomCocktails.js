@@ -8,7 +8,17 @@ const RandomCocktails = () => {
   const [cocktailData, setCocktailData] = useState();
 
   useEffect(() => {
-    fetch10RandomCocktails().then((data) => setCocktailData(data));
+    //Api supports only fetching 10 random cocktails, so gonna use nest to populate page a bit more.
+    fetch10RandomCocktails().then((data) => {
+      setCocktailData(data);
+
+      fetch10RandomCocktails().then((data) => {
+        setCocktailData((prevData) => ({
+          ...prevData,
+          drinks: [...prevData.drinks, ...data.drinks],
+        }));
+      });
+    });
 
     const handleScroll = debounce(() => {
       if (
