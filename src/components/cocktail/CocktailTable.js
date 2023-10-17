@@ -64,13 +64,13 @@ const CocktailTable = ({ fetchPromise, data }) => {
           {cocktailData &&
             cocktailData.drinks.map((drink) => {
               return (
-                  <CocktailTableItem
-                    key={drink.idDrink}
-                    name={drink.strDrink}
-                    thumb={drink.strDrinkThumb}
-                    drinkId={drink.idDrink}
-                    onClick={(e) => handleRowClick(e, drink.idDrink)}
-                  />
+                <CocktailTableItem
+                  key={drink.idDrink}
+                  name={drink.strDrink}
+                  thumb={drink.strDrinkThumb}
+                  drinkId={drink.idDrink}
+                  onClick={(e) => handleRowClick(e, drink.idDrink)}
+                />
               );
             })}
         </TableBody>

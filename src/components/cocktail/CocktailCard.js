@@ -116,10 +116,13 @@ const Cocktail = ({ drink, isExpanded }) => {
             sx={{
               m: "auto",
               p: 0.5,
+              pl: 1,
+              pr: 1,
               border: 1,
+              borderRadius: 4,
               borderColor: "primary.main",
             }}
-            variant="subtitle2"
+            variant="caption"
           >
             {loading ? <Skeleton /> : drinkData.strCategory}
           </Typography>

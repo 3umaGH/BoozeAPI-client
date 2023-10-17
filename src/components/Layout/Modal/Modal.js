@@ -10,15 +10,14 @@ const Modal = ({ closeCallback, ...props }) => {
     left: "calc(50% - 10rem)",
     maxHeight: "80vh",
     overflowY: "auto",
-    
-    scrollbarWidth: "none", // Hide the scrollbar for firefox
-    '&::WebkitScrollbar': {
-        display: 'none', // Hide the scrollbar for WebKit browsers (Chrome, Safari, Edge, etc.)
-    },
-    '&MsOverflowStyle:': {
-        display: 'none', // Hide the scrollbar for IE
-    },
 
+    scrollbarWidth: "none", // Hide the scrollbar for firefox
+    "&::WebkitScrollbar": {
+      display: "none", // Hide the scrollbar for WebKit browsers (Chrome, Safari, Edge, etc.)
+    },
+    "&MsOverflowStyle:": {
+      display: "none", // Hide the scrollbar for IE
+    },
   };
 
   return <Box style={style}>{props.children}</Box>;
