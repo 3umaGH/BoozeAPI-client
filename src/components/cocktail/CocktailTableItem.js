@@ -9,14 +9,15 @@ const CocktailTableItem = ({ name, thumb, drinkId, onClick }) => {
           src={`${thumb}/preview`}
           alt={"Cocktail"}
           style={{
-            width: "130px",
+            width: "20vw",
+            maxWidth: "150px",
             borderRadius: "10%",
           }}
         />
       </TableCell>
 
       <TableCell align="center">
-        <Typography variant="h5" sx={{ height: "100%" }}>
+        <Typography variant="h6" >
           {name}
         </Typography>
       </TableCell>

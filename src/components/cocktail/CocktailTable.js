@@ -55,9 +55,8 @@ const CocktailTable = ({ fetchPromise, data }) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell align="center">
-              <Typography variant="h6">Cocktails</Typography>
-            </TableCell>
+            <TableCell align="center"></TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
