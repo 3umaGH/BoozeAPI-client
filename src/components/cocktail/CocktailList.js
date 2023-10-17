@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import CocktailCard from "./CocktailCard";
+import uuid from 'react-uuid';
 
 const CocktailList = ({ fetchPromise, data }) => {
   const [cocktailData, setCocktailData] = useState();
@@ -17,7 +18,7 @@ const CocktailList = ({ fetchPromise, data }) => {
       {cocktailData &&
         cocktailData.drinks.map((drink) => {
           return (
-            <CocktailCard key={drink.idDrink} drink={drink}></CocktailCard>
+            <CocktailCard key={uuid()} drink={drink}></CocktailCard>
           );
         })}
     </>

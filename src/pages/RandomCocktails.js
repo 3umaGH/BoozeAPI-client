@@ -9,12 +9,10 @@ const RandomCocktails = () => {
 
   useEffect(() => {
     fetch10RandomCocktails().then((data) => {
-      setCocktailData(data)
+      setCocktailData(data);
 
       loadMore();
-      
     });
-
 
     const handleScroll = debounce(() => {
       if (

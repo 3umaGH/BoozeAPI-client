@@ -14,6 +14,8 @@ import Backdrop from "../Layout/Modal/Backdrop";
 
 import { fetchCocktail } from "../../workers/CocktailService";
 
+import uuid from 'react-uuid';
+
 const CocktailTable = ({ fetchPromise, data }) => {
   const [cocktailData, setCocktailData] = useState();
   const [viewingCocktail, setViewingCocktail] = useState();
@@ -63,7 +65,7 @@ const CocktailTable = ({ fetchPromise, data }) => {
             cocktailData.drinks.map((drink) => {
               return (
                 <CocktailTableItem
-                  key={drink.idDrink}
+                  key={uuid()}
                   name={drink.strDrink}
                   thumb={drink.strDrinkThumb}
                   drinkId={drink.idDrink}
