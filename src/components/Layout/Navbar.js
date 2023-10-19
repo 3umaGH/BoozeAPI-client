@@ -21,7 +21,7 @@ import SearchBar from "./SearchBar";
 const pages = [
   { name: "Popular Cocktails", path: "/" },
   { name: "Random Cocktails", path: "/random" },
-  { name: "Saved Cocktails", path: "/favorites" },
+  { name: "Favorite Cocktails", path: "/favorites" },
   { name: "Search", path: "/search" },
 ];
 
@@ -138,10 +138,11 @@ function Navbar() {
               </Button>
             ))}
 
-            <Box sx={{ display: { xs: "none", md: "flex" }, ml:"auto", mt:1.6 }}>
+            <Box
+              sx={{ display: { xs: "none", md: "flex" }, ml: "auto", mt: 1.6 }}
+            >
               <SearchBar />
             </Box>
-
           </Box>
         </Toolbar>
       </Container>

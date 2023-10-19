@@ -11,7 +11,7 @@ const CocktailListFavorites = ({ favoritesList }) => {
   useEffect(() => {
     const drinkDataArray = [];
 
-    favoritesList().forEach((favID) => {
+    favoritesList().forEach((favID) => { // API Does not support fetching cocktails using multiple ids... Have to fetch them one by one.
       fetchCocktail(false, favID).then((data) => {
         drinkDataArray.push(data.drinks[0]);
         setCocktailData({ drinks: drinkDataArray });
