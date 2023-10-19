@@ -23,6 +23,7 @@ import {
 
 import Image from "./Image";
 import { parseIngredients } from "../../workers/CocktailService";
+import withFavorites from "../hoc/WithFavorites";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -35,20 +36,31 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const Cocktail = ({ drink, isExpanded }) => {
+const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
   const [drinkData, setDrinkData] = useState(undefined);
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isFavorited, setFavorited] = useState(false); // Used to re-render for the icon to update
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const handleAddToFavorites = () => {
+    setFavorited(!isFavorited);
+    toggleFavorite(drink.idDrink);
+
+  }
+
   useEffect(() => {
     setDrinkData(drink);
     setExpanded(isExpanded);
     setLoading(false);
-  }, [drink, isExpanded]);
+
+    setFavorited(isInFavorites(drink.idDrink))
+    
+  }, [drink, isExpanded, isInFavorites]);
+  
 
   const drinkName = loading ? <Skeleton /> : drinkData.strDrink;
 
@@ -92,6 +104,7 @@ const Cocktail = ({ drink, isExpanded }) => {
     </>
   );
 
+
   return (
     <Box sx={{ width: "300px", mt: 2, mr: 1 }}>
       <Card sx={{}}>
@@ -118,10 +131,11 @@ const Cocktail = ({ drink, isExpanded }) => {
           >
             {drinkIsAlcoholicElement}
             {drinkGlassType}
+
           </Box>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton aria-label="add to favorites" color= {isFavorited ? "error" : ""} onClick={() => handleAddToFavorites()}>
             <FavoriteIcon />
           </IconButton>
           <IconButton aria-label="share">
@@ -184,4 +198,4 @@ const Cocktail = ({ drink, isExpanded }) => {
   );
 };
 
-export default Cocktail;
+export default withFavorites(Cocktail);
