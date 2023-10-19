@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import CocktailCard from "./CocktailCard";
-import uuid from 'react-uuid';
+import uuid from "react-uuid";
+import { Typography } from "@mui/material";
 
-const CocktailList = ({ fetchPromise, data }) => {
+const CocktailList = ({ fetchPromise, data, errorMessage }) => {
   const [cocktailData, setCocktailData] = useState();
 
   useEffect(() => {
@@ -15,12 +16,13 @@ const CocktailList = ({ fetchPromise, data }) => {
 
   return (
     <>
-      {cocktailData &&
-        cocktailData.drinks.map((drink) => {
-          return (
-            <CocktailCard key={uuid()} drink={drink}></CocktailCard>
-          );
-        })}
+      {cocktailData && cocktailData.drinks ? (
+        cocktailData.drinks.map((drink) => (
+          <CocktailCard key={uuid()} drink={drink} />
+        ))
+      ) : (
+        <Typography variant="h6">{errorMessage}</Typography>
+      )}
     </>
   );
 };
