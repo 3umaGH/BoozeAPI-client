@@ -49,18 +49,15 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
   const handleAddToFavorites = () => {
     setFavorited(!isFavorited);
     toggleFavorite(drink.idDrink);
-
-  }
+  };
 
   useEffect(() => {
     setDrinkData(drink);
     setExpanded(isExpanded);
     setLoading(false);
 
-    setFavorited(isInFavorites(drink.idDrink))
-    
+    setFavorited(isInFavorites(drink.idDrink));
   }, [drink, isExpanded, isInFavorites]);
-  
 
   const drinkName = loading ? <Skeleton /> : drinkData.strDrink;
 
@@ -104,7 +101,6 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
     </>
   );
 
-
   return (
     <Box sx={{ width: "300px", mt: 2, mr: 1 }}>
       <Card sx={{}}>
@@ -131,11 +127,14 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
           >
             {drinkIsAlcoholicElement}
             {drinkGlassType}
-
           </Box>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" color= {isFavorited ? "error" : ""} onClick={() => handleAddToFavorites()}>
+          <IconButton
+            aria-label="add to favorites"
+            color={isFavorited ? "error" : ""}
+            onClick={() => handleAddToFavorites()}
+          >
             <FavoriteIcon />
           </IconButton>
           <IconButton aria-label="share">

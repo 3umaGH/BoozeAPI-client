@@ -45,6 +45,7 @@ const withFavorites = (WrappedComponent) => {
         <WrappedComponent
           toggleFavorite={this.toggleFavorite}
           isInFavorites={this.isInFavorites}
+          favoritesList={this.getFavoritesList}
           {...this.props}
         />
       );
