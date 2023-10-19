@@ -42,6 +42,8 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
   const [loading, setLoading] = useState(true);
   const [isFavorited, setFavorited] = useState(false); // Used to re-render for the icon to update
 
+  const shareLink = `https://twitter.com/intent/tweet?text=Check out this ${drink.strDrink} cocktail recipe at ${window.location.href}`;
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -137,7 +139,12 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
           >
             <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="share">
+          <IconButton
+            aria-label="share"
+            href={shareLink}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             <ShareIcon />
           </IconButton>
 

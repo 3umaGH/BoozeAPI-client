@@ -14,8 +14,7 @@ function App() {
         <Route path="/random" element={<RandomCocktails />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/cocktail/:cocktailID" element={<SingleCocktail/>} />
-        
+        <Route path="/cocktail/:cocktailID" element={<SingleCocktail />} />
       </Routes>
     </BrowserRouter>
   );
