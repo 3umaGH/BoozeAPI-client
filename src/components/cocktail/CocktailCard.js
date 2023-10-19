@@ -37,12 +37,11 @@ const ExpandMore = styled((props) => {
 }));
 
 const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
-  const [drinkData, setDrinkData] = useState(undefined);
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isFavorited, setFavorited] = useState(false); // Used to re-render for the icon to update
 
-  const shareLink = `https://twitter.com/intent/tweet?text=Check out this ${drink.strDrink} cocktail recipe at ${window.location.href}`;
+  const shareLink = `https://twitter.com/intent/tweet?text=Check out this ${drink.strDrink} cocktail recipe at ${window.location.origin}/cocktail/${drink.idDrink}`;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -54,21 +53,20 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
   };
 
   useEffect(() => {
-    setDrinkData(drink);
     setExpanded(isExpanded);
     setLoading(false);
 
     setFavorited(isInFavorites(drink.idDrink));
   }, [drink, isExpanded, isInFavorites]);
 
-  const drinkName = loading ? <Skeleton /> : drinkData.strDrink;
+  const drinkName = loading ? <Skeleton /> : drink.strDrink;
 
   const drinkThumb = loading ? (
     <Skeleton variant="rectangular" sx={{ height: "230px" }} />
   ) : (
     <Box align="center" onClick={handleExpandClick} sx={{ cursor: "pointer" }}>
       <Image
-        src={drinkData.strDrinkThumb}
+        src={drink.strDrinkThumb}
         alt={"Cocktail"}
         style={{
           width: "200px",
@@ -82,14 +80,14 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
     <Skeleton />
   ) : (
     <>
-      {drinkData.strAlcoholic === "Alcoholic" ? (
+      {drink.strAlcoholic === "Alcoholic" ? (
         <LiquorIcon fontSize="small" color="error" />
       ) : (
         <LiquorIcon fontSize="small" color="success" />
       )}
 
       <Typography sx={{ ml: 0.5 }} variant="caption">
-        {drinkData.strAlcoholic}
+        {drink.strAlcoholic}
       </Typography>
     </>
   );
@@ -99,7 +97,7 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
   ) : (
     <>
       <WineBarOutlinedIcon sx={{ ml: "auto" }} fontSize="small" />
-      <Typography variant="caption">{drinkData.strGlass}</Typography>
+      <Typography variant="caption">{drink.strGlass}</Typography>
     </>
   );
 
@@ -160,7 +158,7 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
             }}
             variant="caption"
           >
-            {loading ? <Skeleton /> : drinkData.strCategory}
+            {loading ? <Skeleton /> : drink.strCategory}
           </Typography>
 
           <ExpandMore
@@ -178,7 +176,7 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
               <Typography variant="h6" paragraph>
                 Ingredients:
               </Typography>
-              {parseIngredients(drinkData).map((ingredient, index) => (
+              {parseIngredients(drink).map((ingredient, index) => (
                 <Typography variant="body2" key={index} sx={{ mb: 2 }}>
                   <FiberManualRecordIcon
                     sx={{ fontSize: 10 }}
@@ -193,9 +191,7 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
               <Typography sx={{ mt: 2 }} variant="h6" paragraph>
                 Instructions:
               </Typography>
-              <Typography variant="body2">
-                {drinkData.strInstructions}
-              </Typography>
+              <Typography variant="body2">{drink.strInstructions}</Typography>
             </CardContent>
           </Collapse>
         )}
