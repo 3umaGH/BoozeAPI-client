@@ -23,7 +23,6 @@ const pages = [
   { name: "Random Cocktails", path: "/random" },
   { name: "Saved Cocktails", path: "/favorites" },
   { name: "Search", path: "/search" },
-
 ];
 
 function Navbar() {
@@ -63,7 +62,6 @@ function Navbar() {
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -121,7 +119,13 @@ function Navbar() {
           >
             Cocktails
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              align: "center",
+            }}
+          >
             {pages.map((page) => (
               <Button
                 key={page.name}
@@ -133,10 +137,11 @@ function Navbar() {
                 {page.name}
               </Button>
             ))}
-          </Box>
 
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <SearchBar />
+            <Box sx={{ display: { xs: "none", md: "flex" }, ml:"auto", mt:1.6 }}>
+              <SearchBar />
+            </Box>
+
           </Box>
         </Toolbar>
       </Container>

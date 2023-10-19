@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, IconButton, TextField } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +13,6 @@ const SearchBar = ({ iconColor }) => {
   };
 
   return (
-    <Container>
       <form onSubmit={submitHandler}>
         <TextField
           id="search-bar"
@@ -29,7 +28,6 @@ const SearchBar = ({ iconColor }) => {
           <SearchIcon style={{ fill: `${iconColor}` }} />
         </IconButton>
       </form>
-    </Container>
   );
 };
 
