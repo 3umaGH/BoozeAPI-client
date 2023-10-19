@@ -9,7 +9,6 @@ import {
   Collapse,
   Divider,
   IconButton,
-  Skeleton,
 } from "@mui/material";
 
 import {
@@ -55,8 +54,6 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
     setExpanded(isExpanded);
     setFavorited(isInFavorites(drink.idDrink));
   }, [drink, isExpanded, isInFavorites]);
-
-  const drinkName = drink.strDrink;
 
   const drinkThumb = (
     <>
@@ -111,7 +108,7 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
             overflow="hidden"
             gutterBottom
           >
-            {drinkName}
+            {drink.strDrink}
           </Typography>
 
           {drinkThumb}
