@@ -6,15 +6,15 @@ import withFavorites from "../hoc/WithFavorites";
 import uuid from "react-uuid";
 
 const CocktailListFavorites = ({ favoritesList }) => {
-  const [cocktailData, setCocktailData] = useState();
+  const [cocktailData, setCocktailData] = useState({drinks: []});
 
   useEffect(() => {
-    const drinkDataArray = [];
-
     favoritesList().forEach((favID) => { // API Does not support fetching cocktails using multiple ids... Have to fetch them one by one.
       fetchCocktail(false, favID).then((data) => {
-        drinkDataArray.push(data.drinks[0]);
-        setCocktailData({ drinks: drinkDataArray });
+        setCocktailData((prevData) => ({
+          ...prevData,
+          drinks: [...prevData.drinks, ...data.drinks],
+        }));
       });
     });
   }, [favoritesList]);
