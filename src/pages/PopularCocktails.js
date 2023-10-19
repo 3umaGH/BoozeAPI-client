@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import Layout from "../components/Layout/Layout";
 import CocktailList from "../components/cocktail/CocktailList";
 import { fetchPopularCocktails } from "../workers/CocktailService";
@@ -7,6 +7,9 @@ import { fetchPopularCocktails } from "../workers/CocktailService";
 function Main() {
   return (
     <Layout>
+      <Container align="center" sx={{ mt: 3 }}>
+        <Typography variant="h6">Popular Cocktails</Typography>
+      </Container>
       <Box
         style={{ width: "100%" }}
         sx={{

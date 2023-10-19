@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import Layout from "../components/Layout/Layout";
 import CocktailList from "../components/cocktail/CocktailList";
 import { fetch10RandomCocktails } from "../workers/CocktailService";
@@ -40,6 +40,9 @@ const RandomCocktails = () => {
 
   return (
     <Layout>
+      <Container align="center" sx={{ mt: 3 }}>
+        <Typography variant="h6">Random Cocktails</Typography>
+      </Container>
       <Box
         style={{ width: "100%" }}
         sx={{

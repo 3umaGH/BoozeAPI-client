@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 
@@ -35,6 +35,9 @@ function Search() {
 
   return (
     <Layout>
+      <Container align="center" sx={{ mt: 3 }}>
+        <Typography variant="h6">Search by parameters</Typography>
+      </Container>
 
       <QuerySearch queryCallback={handleSearchQueryUpdate} />
 

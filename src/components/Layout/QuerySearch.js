@@ -80,9 +80,7 @@ const QuerySearch = ({ queryCallback }) => {
   }, [categoryQuery, glassTypeQuery, ingredientsQuery, alcoholicQuery]);
 
   return (
-    <Container align="center" sx={{ mt: 3 }}>
-      <Typography variant="h6">Search by parameter</Typography>
-
+    <Container align="center">
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel>Category</InputLabel>
         <Select
@@ -129,7 +127,7 @@ const QuerySearch = ({ queryCallback }) => {
         </Select>
       </FormControl>
 
-      <FormControl variant="standard" sx={{ m: 1, mb:3, minWidth: 120 }}>
+      <FormControl variant="standard" sx={{ m: 1, mb: 3, minWidth: 120 }}>
         <InputLabel>Glass Type</InputLabel>
         <Select
           label="Glass Type"
