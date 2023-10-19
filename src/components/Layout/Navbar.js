@@ -104,8 +104,8 @@ function Navbar() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+            component={Link}
+            to={"/"}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
