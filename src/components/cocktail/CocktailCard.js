@@ -50,6 +50,48 @@ const Cocktail = ({ drink, isExpanded }) => {
     setLoading(false);
   }, [drink, isExpanded]);
 
+  const drinkName = loading ? <Skeleton /> : drinkData.strDrink;
+
+  const drinkThumb = loading ? (
+    <Skeleton variant="rectangular" sx={{ height: "230px" }} />
+  ) : (
+    <Box align="center" onClick={handleExpandClick} sx={{ cursor: "pointer" }}>
+      <Image
+        src={drinkData.strDrinkThumb}
+        alt={"Cocktail"}
+        style={{
+          width: "200px",
+          borderRadius: "5%",
+        }}
+      />
+    </Box>
+  );
+
+  const drinkIsAlcoholicElement = loading ? (
+    <Skeleton />
+  ) : (
+    <>
+      {drinkData.strAlcoholic === "Alcoholic" ? (
+        <LiquorIcon fontSize="small" color="error" />
+      ) : (
+        <LiquorIcon fontSize="small" color="success" />
+      )}
+
+      <Typography sx={{ ml: 0.5 }} variant="caption">
+        {drinkData.strAlcoholic}
+      </Typography>
+    </>
+  );
+
+  const drinkGlassType = loading ? (
+    <Skeleton />
+  ) : (
+    <>
+      <WineBarOutlinedIcon sx={{ ml: "auto" }} fontSize="small" />
+      <Typography variant="caption">{drinkData.strGlass}</Typography>
+    </>
+  );
+
   return (
     <Box sx={{ width: "300px", mt: 2, mr: 1 }}>
       <Card sx={{}}>
@@ -63,46 +105,20 @@ const Cocktail = ({ drink, isExpanded }) => {
             overflow="hidden"
             gutterBottom
           >
-            {loading ? <Skeleton /> : drinkData.strDrink}
+            {drinkName}
           </Typography>
 
-          {loading ? (
-            <Skeleton variant="rectangular" sx={{ height: "230px" }} />
-          ) : (
-            <Box
-              align="center"
-              onClick={handleExpandClick}
-              sx={{ cursor: "pointer" }}
-            >
-              <Image
-                src={drinkData.strDrinkThumb}
-                alt={"Cocktail"}
-                style={{
-                  width: "200px",
-                  borderRadius: "5%",
-                }}
-              />
+          {drinkThumb}
 
-              <Box
-                sx={{
-                  display: "flex",
-                  mt: 1,
-                }}
-              >
-                {drinkData.strAlcoholic === "Alcoholic" ? (
-                  <LiquorIcon fontSize="small" color="error" />
-                ) : (
-                  <LiquorIcon fontSize="small" color="success" />
-                )}
-                <Typography sx={{ ml: 0.5 }} variant="caption">
-                  {drinkData.strAlcoholic}
-                </Typography>
-
-                <WineBarOutlinedIcon sx={{ ml: "auto" }} fontSize="small" />
-                <Typography variant="caption">{drinkData.strGlass}</Typography>
-              </Box>
-            </Box>
-          )}
+          <Box
+            sx={{
+              display: "flex",
+              mt: 1,
+            }}
+          >
+            {drinkIsAlcoholicElement}
+            {drinkGlassType}
+          </Box>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
