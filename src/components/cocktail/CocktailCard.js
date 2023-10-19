@@ -38,7 +38,6 @@ const ExpandMore = styled((props) => {
 
 const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
   const [expanded, setExpanded] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [isFavorited, setFavorited] = useState(false); // Used to re-render for the icon to update
 
   const shareLink = `https://twitter.com/intent/tweet?text=Check out this ${drink.strDrink} cocktail recipe at ${window.location.origin}/cocktail/${drink.idDrink}`;
@@ -54,31 +53,31 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
 
   useEffect(() => {
     setExpanded(isExpanded);
-    setLoading(false);
-
     setFavorited(isInFavorites(drink.idDrink));
   }, [drink, isExpanded, isInFavorites]);
 
-  const drinkName = loading ? <Skeleton /> : drink.strDrink;
+  const drinkName = drink.strDrink;
 
-  const drinkThumb = loading ? (
-    <Skeleton variant="rectangular" sx={{ height: "230px" }} />
-  ) : (
-    <Box align="center" onClick={handleExpandClick} sx={{ cursor: "pointer" }}>
-      <Image
-        src={drink.strDrinkThumb}
-        alt={"Cocktail"}
-        style={{
-          width: "200px",
-          borderRadius: "5%",
-        }}
-      />
-    </Box>
+  const drinkThumb = (
+    <>
+      <Box
+        align="center"
+        onClick={handleExpandClick}
+        sx={{ cursor: "pointer" }}
+      >
+        <Image
+          src={drink.strDrinkThumb}
+          alt={"Cocktail"}
+          style={{
+            width: "200px",
+            borderRadius: "5%",
+          }}
+        />
+      </Box>
+    </>
   );
 
-  const drinkIsAlcoholicElement = loading ? (
-    <Skeleton />
-  ) : (
+  const drinkIsAlcoholicElement = (
     <>
       {drink.strAlcoholic === "Alcoholic" ? (
         <LiquorIcon fontSize="small" color="error" />
@@ -92,9 +91,7 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
     </>
   );
 
-  const drinkGlassType = loading ? (
-    <Skeleton />
-  ) : (
+  const drinkGlassType = (
     <>
       <WineBarOutlinedIcon sx={{ ml: "auto" }} fontSize="small" />
       <Typography variant="caption">{drink.strGlass}</Typography>
@@ -158,7 +155,7 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
             }}
             variant="caption"
           >
-            {loading ? <Skeleton /> : drink.strCategory}
+            {drink.strCategory}
           </Typography>
 
           <ExpandMore
@@ -170,31 +167,30 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
             <ExpandMoreIcon />
           </ExpandMore>
         </CardActions>
-        {!loading && (
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <CardContent align="center">
-              <Typography variant="h6" paragraph>
-                Ingredients:
-              </Typography>
-              {parseIngredients(drink).map((ingredient, index) => (
-                <Typography variant="body2" key={index} sx={{ mb: 2 }}>
-                  <FiberManualRecordIcon
-                    sx={{ fontSize: 10 }}
-                    color="action"
-                    fontSize="small"
-                  />{" "}
-                  {ingredient}
-                </Typography>
-              ))}
 
-              <Divider />
-              <Typography sx={{ mt: 2 }} variant="h6" paragraph>
-                Instructions:
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent align="center">
+            <Typography variant="h6" paragraph>
+              Ingredients:
+            </Typography>
+            {parseIngredients(drink).map((ingredient, index) => (
+              <Typography variant="body2" key={index} sx={{ mb: 2 }}>
+                <FiberManualRecordIcon
+                  sx={{ fontSize: 10 }}
+                  color="action"
+                  fontSize="small"
+                />{" "}
+                {ingredient}
               </Typography>
-              <Typography variant="body2">{drink.strInstructions}</Typography>
-            </CardContent>
-          </Collapse>
-        )}
+            ))}
+
+            <Divider />
+            <Typography sx={{ mt: 2 }} variant="h6" paragraph>
+              Instructions:
+            </Typography>
+            <Typography variant="body2">{drink.strInstructions}</Typography>
+          </CardContent>
+        </Collapse>
       </Card>
     </Box>
   );
