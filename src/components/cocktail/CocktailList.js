@@ -16,8 +16,7 @@ const CocktailList = ({ fetchPromise, data, errorMessage }) => {
 
   return (
     <>
-      {cocktailData ? (
-  
+      {cocktailData && Array.isArray(cocktailData) ? (
         cocktailData.map((drink) => (
           <CocktailCard key={uuid()} drink={drink} />
         ))

@@ -28,10 +28,7 @@ const QuerySearch = ({ queryCallback }) => {
 
   const resetSearchParams = () => {
     // Turns out api doesn't support search by multiple parameters...
-    setCategoryQuery("");
-    setGlassTypeQuery("");
-    setIngredientsQuery("");
-    setAlcoholicQuery("");
+
   };
 
   useEffect(() => {

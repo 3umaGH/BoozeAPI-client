@@ -3,7 +3,7 @@ const BASE_PATH = `https://cocktail-db-api.vercel.app`;
 const fetchData = async (link) => {
   const response = await fetch(link);
 
-  if (response.status !== 200)
+  if (response.status !== 200 && response.status !== 404)
     throw new Error("Unable to fetch data. Status: " + response.status);
 
   const data = await response.json();
@@ -15,8 +15,6 @@ export const fetchCocktail = async (useRandom, ids) => {
   const link = useRandom
     ? `${BASE_PATH}/lookup/random/1`
     : `${BASE_PATH}/cocktails/${ids.join(',')}`;
-
-    console.log("flink",link);
   return fetchData(link);
 };
 
@@ -35,20 +33,22 @@ export const fetchCocktailsBy = async (
   let queryParams = [];
 
   if (category !== undefined && category !== "")
-    queryParams.push(`c=${category}`);
+    queryParams.push(`category=${encodeURIComponent(category)}`);
 
-  if (glass !== undefined && glass !== "") queryParams.push(`g=${glass}`);
+  if (glass !== undefined && glass !== "") queryParams.push(`glass=${encodeURIComponent(glass)}`);
 
   if (ingredients !== undefined && ingredients !== "")
-    queryParams.push(`i=${ingredients}`);
+    queryParams.push(`ingredients=${encodeURIComponent(ingredients)}`);
 
   if (alcoholic !== undefined && alcoholic !== "")
-    queryParams.push(`a=${alcoholic}`);
+    queryParams.push(`alcoholic=${encodeURIComponent(alcoholic)}`);
 
   const queryString = queryParams.join("&");
-  const link = `${BASE_PATH}/filter.php${queryString ? `?${queryString}` : ""}`;
+  const link = `${BASE_PATH}/search/${queryString ? `?${queryString}` : ""}`;
 
-  return fetchData(link.replace(" ", "%20"));
+
+  console.log("link:", link)
+  return fetchData(link);
 };
 
 export const fetchPopularCocktails = async () => {

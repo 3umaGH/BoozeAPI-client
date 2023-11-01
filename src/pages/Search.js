@@ -18,7 +18,7 @@ function Search() {
   const query = params.get("name");
 
   useEffect(() => {
-    if (query !== undefined)
+    if (query && query !== null)
       fetchCocktailsByName(query).then((data) => setCocktailData(data));
   }, [query]);
 
@@ -50,8 +50,13 @@ function Search() {
         }}
         align="center"
       >
-        {cocktailData === undefined || cocktailData.drinks === null ? (
-          <h1>No results according to your search query.</h1>
+        {cocktailData === undefined ||
+        cocktailData.message === "Drinks not found" ? (
+          <>
+            <h3 style={{ marginTop: "50px" }}>
+              No results, try using less search parameters.
+            </h3>
+          </>
         ) : (
           <CocktailList data={cocktailData}></CocktailList>
         )}
