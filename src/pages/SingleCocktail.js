@@ -21,8 +21,7 @@ function SingleCocktail(props) {
       >
         {!isNaN(Number(cocktailID)) ? (
           <CocktailList
-            fetchPromise={fetchCocktail(false, cocktailID)}
-            errorMessage="Cocktail not found"
+            fetchPromise={fetchCocktail(false, [cocktailID])}
           />
         ) : (
           <Typography variant="h6">Invalid cocktail ID</Typography>

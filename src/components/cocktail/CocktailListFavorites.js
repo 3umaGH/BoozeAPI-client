@@ -21,7 +21,7 @@ const CocktailListFavorites = ({ favoritesList }) => {
       {cocktailData ? (
         <CocktailList data={cocktailData} />
       ) : favoritesList().length === 0 ? (
-        <h1>You do not have any favorited drinks.</h1>
+        <h3>You do not have any favorited drinks.</h3>
       ) : (
         <h1>Loading...</h1>
       )}

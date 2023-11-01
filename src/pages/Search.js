@@ -12,6 +12,7 @@ import CocktailList from "../components/cocktail/CocktailList";
 
 function Search() {
   const [cocktailData, setCocktailData] = useState();
+  const [loading, setLoading] = useState(false);
 
   const { search } = useLocation();
   const params = new URLSearchParams(search);
@@ -28,9 +29,12 @@ function Search() {
     ingredients,
     alcoholic
   ) => {
-    fetchCocktailsBy(category, glassType, undefined, alcoholic).then((data) =>
-      setCocktailData(data)
-    );
+    setLoading(true);
+
+    fetchCocktailsBy(category, glassType, undefined, alcoholic).then((data) => {
+      setCocktailData(data);
+      setLoading(false);
+    });
   };
 
   return (
@@ -50,13 +54,13 @@ function Search() {
         }}
         align="center"
       >
-        {cocktailData === undefined ||
-        cocktailData.message === "Drinks not found" ? (
-          <>
-            <h3 style={{ marginTop: "50px" }}>
-              No results, try using less search parameters.
-            </h3>
-          </>
+        {loading ? (
+          <h3 style={{ marginTop: "50px", width: "100%" }}>Loading...</h3>
+        ) : cocktailData === undefined ||
+          cocktailData.message === "Drinks not found" ? (
+          <h3 style={{ marginTop: "50px" }}>
+            No results, try using less search parameters.
+          </h3>
         ) : (
           <CocktailList data={cocktailData}></CocktailList>
         )}

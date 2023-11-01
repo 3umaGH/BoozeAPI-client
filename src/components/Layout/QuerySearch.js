@@ -26,11 +26,6 @@ const QuerySearch = ({ queryCallback }) => {
 
   const [isLoaded, setLoaded] = useState(false);
 
-  const resetSearchParams = () => {
-    // Turns out api doesn't support search by multiple parameters...
-
-  };
-
   useEffect(() => {
     fetchSearchParameters().then((data) => {
       const ingredients = new Set(); // TODO
@@ -72,12 +67,11 @@ const QuerySearch = ({ queryCallback }) => {
           label="Category"
           value={categoryQuery}
           onChange={(e) => {
-            resetSearchParams();
             setCategoryQuery(e.target.value);
           }}
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>{isLoaded ? "None" : "Loading..."}</em>
           </MenuItem>
 
           {isLoaded &&
@@ -95,12 +89,11 @@ const QuerySearch = ({ queryCallback }) => {
           label="Alcoholic"
           value={alcoholicQuery}
           onChange={(e) => {
-            resetSearchParams();
             setAlcoholicQuery(e.target.value);
           }}
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>{isLoaded ? "None" : "Loading..."}</em>
           </MenuItem>
 
           {isLoaded &&
@@ -118,12 +111,11 @@ const QuerySearch = ({ queryCallback }) => {
           label="Glass Type"
           value={glassTypeQuery}
           onChange={(e) => {
-            resetSearchParams();
             setGlassTypeQuery(e.target.value);
           }}
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>{isLoaded ? "None" : "Loading..."}</em>
           </MenuItem>
 
           {isLoaded &&
