@@ -6,10 +6,15 @@ import {
   Select,
   FormControl,
   Typography,
+  Autocomplete,
+  TextField,
+  Chip,
+  Paper,
+  ListItem,
 } from "@mui/material";
 
 import { fetchSearchParameters } from "../../workers/CocktailService";
-import SearchBar from "./SearchBar";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const QuerySearch = ({ queryCallback }) => {
   const [availableSearchParams, setAvailableSearchParams] = useState({
@@ -28,16 +33,13 @@ const QuerySearch = ({ queryCallback }) => {
 
   useEffect(() => {
     fetchSearchParameters().then((data) => {
-      const ingredients = new Set(); // TODO
-
       setAvailableSearchParams((prevState) => ({
         ...prevState,
         category: Array.from(data.categories),
         glassType: Array.from(data.glassTypes),
-        ingredients: Array.from(ingredients),
+        ingredients: Array.from(data.ingredients),
         alcoholic: Array.from(data.alcoholic),
       }));
-
       setLoaded(true);
     });
   }, []);
@@ -46,9 +48,10 @@ const QuerySearch = ({ queryCallback }) => {
     if (
       categoryQuery !== "" ||
       glassTypeQuery !== "" ||
-      ingredientsQuery !== "" ||
+      ingredientsQuery.length !== 0 ||
       alcoholicQuery !== ""
     ) {
+      console.log(ingredientsQuery.length);
       queryCallback(
         categoryQuery,
         glassTypeQuery,
@@ -58,6 +61,17 @@ const QuerySearch = ({ queryCallback }) => {
     }
     /* eslint-disable react-hooks/exhaustive-deps */
   }, [categoryQuery, glassTypeQuery, ingredientsQuery, alcoholicQuery]);
+
+  const handleOptionSelected = (event, value) => {
+    if (value !== null && !ingredientsQuery.includes(value))
+      setIngredientsQuery((prevData) => [...prevData, value]);
+  };
+
+  const handleIngredientDelete = (value) => {
+    setIngredientsQuery((prevData) =>
+      prevData.filter((item) => item !== value)
+    );
+  };
 
   return (
     <Container align="center">
@@ -127,7 +141,38 @@ const QuerySearch = ({ queryCallback }) => {
         </Select>
       </FormControl>
 
-      <SearchBar />
+      <Paper
+        sx={{
+          display: "flex",
+          justifyItems: "center",
+          justifyContent: "center",
+        }}
+        component="ul"
+      >
+        {ingredientsQuery &&
+          ingredientsQuery.map((data) => {
+            return (
+              <ListItem key={data}>
+                <Chip
+                  label={data}
+                  onDelete={() => handleIngredientDelete(data)}
+                />
+              </ListItem>
+            );
+          })}
+      </Paper>
+
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <Autocomplete
+          disablePortal
+          options={availableSearchParams.ingredients}
+          onChange={handleOptionSelected}
+          sx={{ width: 300, height: 100 }}
+          renderInput={(params) => (
+            <TextField {...params} label="Ingredients" />
+          )}
+        />
+      </FormControl>
     </Container>
   );
 };

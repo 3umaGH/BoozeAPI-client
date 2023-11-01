@@ -31,7 +31,7 @@ function Search() {
   ) => {
     setLoading(true);
 
-    fetchCocktailsBy(category, glassType, undefined, alcoholic).then((data) => {
+    fetchCocktailsBy(category, glassType, ingredients, alcoholic).then((data) => {
       setCocktailData(data);
       setLoading(false);
     });

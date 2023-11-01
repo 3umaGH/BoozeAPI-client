@@ -14,7 +14,7 @@ const fetchData = async (link) => {
 export const fetchCocktail = async (useRandom, ids) => {
   const link = useRandom
     ? `${BASE_PATH}/lookup/random/1`
-    : `${BASE_PATH}/cocktails/${ids.join(',')}`;
+    : `${BASE_PATH}/cocktails/${ids.join(",")}`;
   return fetchData(link);
 };
 
@@ -35,10 +35,11 @@ export const fetchCocktailsBy = async (
   if (category !== undefined && category !== "")
     queryParams.push(`category=${encodeURIComponent(category)}`);
 
-  if (glass !== undefined && glass !== "") queryParams.push(`glass=${encodeURIComponent(glass)}`);
+  if (glass !== undefined && glass !== "")
+    queryParams.push(`glass=${encodeURIComponent(glass)}`);
 
-  if (ingredients !== undefined && ingredients !== "")
-    queryParams.push(`ingredients=${encodeURIComponent(ingredients)}`);
+  if (ingredients !== undefined && ingredients.length > 0)
+    queryParams.push(`ingredients=${ingredients}`);
 
   if (alcoholic !== undefined && alcoholic !== "")
     queryParams.push(`alcoholic=${encodeURIComponent(alcoholic)}`);

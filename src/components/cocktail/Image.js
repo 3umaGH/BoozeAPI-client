@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
 const Image = (props) => {
-  const [imageLoaded, setLoaded] = useState(true); // DISABLED DUE NOT WORKING AS INTENDED
+  const [imageLoaded, setLoaded] = useState(false); // DISABLED DUE NOT WORKING AS INTENDED
 
   const loadHandler = () => {
     setLoaded(true);
