@@ -36,26 +36,14 @@ const QuerySearch = ({ queryCallback }) => {
 
   useEffect(() => {
     fetchSearchParameters().then((data) => {
-      const categories = new Set(),
-        glassType = new Set(),
-        ingredients = new Set(),
-        alcoholic = new Set();
-
-      data.forEach((item) => {
-        item.drinks.forEach((drink) => {
-          if (drink.strCategory) categories.add(drink.strCategory);
-          if (drink.strGlass) glassType.add(drink.strGlass);
-          if (drink.strIngredient1) ingredients.add(drink.strIngredient1);
-          if (drink.strAlcoholic) alcoholic.add(drink.strAlcoholic);
-        });
-      });
+      const ingredients = new Set(); // TODO
 
       setAvailableSearchParams((prevState) => ({
         ...prevState,
-        category: Array.from(categories),
-        glassType: Array.from(glassType),
+        category: Array.from(data.categories),
+        glassType: Array.from(data.glassTypes),
         ingredients: Array.from(ingredients),
-        alcoholic: Array.from(alcoholic),
+        alcoholic: Array.from(data.alcoholic),
       }));
 
       setLoaded(true);

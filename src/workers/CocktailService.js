@@ -1,4 +1,4 @@
-const BASE_PATH = `https://www.thecocktaildb.com/api/json/v2/${process.env.REACT_APP_API_KEY}`;
+const BASE_PATH = `https://cocktail-db-api.vercel.app`;
 
 const fetchData = async (link) => {
   const response = await fetch(link);
@@ -11,16 +11,17 @@ const fetchData = async (link) => {
   return data;
 };
 
-export const fetchCocktail = async (useRandom, id) => {
+export const fetchCocktail = async (useRandom, ids) => {
   const link = useRandom
-    ? `${BASE_PATH}/random.php`
-    : `${BASE_PATH}/lookup.php?i=${id}`;
+    ? `${BASE_PATH}/lookup/random/1`
+    : `${BASE_PATH}/cocktails/${ids.join(',')}`;
 
+    console.log("flink",link);
   return fetchData(link);
 };
 
 export const fetchCocktailsByName = async (name) => {
-  const link = `${BASE_PATH}/search.php?s=${name}`;
+  const link = `${BASE_PATH}/search/?name=${name}`;
 
   return fetchData(link);
 };
@@ -51,51 +52,19 @@ export const fetchCocktailsBy = async (
 };
 
 export const fetchPopularCocktails = async () => {
-  const link = `${BASE_PATH}/popular.php`;
+  const link = `${BASE_PATH}/lookup/popular`;
 
   return fetchData(link);
 };
 
-export const fetch10RandomCocktails = async () => {
-  const link = `${BASE_PATH}/randomSelection.php`;
+export const fetchRandomCocktails = async () => {
+  const link = `${BASE_PATH}/lookup/random/?amount=20`;
 
   return fetchData(link);
 };
 
 export const fetchSearchParameters = async () => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      let result = [];
+  const link = `${BASE_PATH}/list`;
 
-      const endpoints = ["c", "g", "i", "a"]; // Category, glass type, ingredients, alcoholic or not
-
-      for (const endpoint of endpoints) {
-        const data = await fetchData(`${BASE_PATH}/list.php?${endpoint}=list`);
-        result.push(data);
-      }
-
-      resolve(result);
-    } catch (error) {
-      reject("Error fetching search parameters data:", error);
-    }
-  });
-};
-
-export const parseIngredients = (drink) => {
-  const ingredients = [];
-
-  for (let i = 1; i <= 15; i++) {
-    const ingredient = drink[`strIngredient${i}`];
-
-    if (ingredient != null) {
-      let format = ingredient;
-
-      if (drink[`strMeasure${i}`] != null)
-        format = drink[`strMeasure${i}`] + " " + ingredient;
-
-      ingredients.push(format);
-    }
-  }
-
-  return ingredients;
+  return fetchData(link);
 };

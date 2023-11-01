@@ -8,7 +8,7 @@ import {
   fetchCocktailsByName,
 } from "../workers/CocktailService";
 import QuerySearch from "../components/Layout/QuerySearch";
-import CocktailTable from "../components/cocktail/CocktailTable";
+import CocktailList from "../components/cocktail/CocktailList";
 
 function Search() {
   const [cocktailData, setCocktailData] = useState();
@@ -41,11 +41,19 @@ function Search() {
 
       <QuerySearch queryCallback={handleSearchQueryUpdate} />
 
-      <Box style={{ width: "100%" }} align="center">
+      <Box
+        style={{ width: "100%" }}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+        }}
+        align="center"
+      >
         {cocktailData === undefined || cocktailData.drinks === null ? (
           <h1>No results according to your search query.</h1>
         ) : (
-          <CocktailTable data={cocktailData}></CocktailTable>
+          <CocktailList data={cocktailData}></CocktailList>
         )}
       </Box>
     </Layout>

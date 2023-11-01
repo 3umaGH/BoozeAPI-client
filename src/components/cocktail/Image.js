@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
 const Image = (props) => {
@@ -8,6 +8,10 @@ const Image = (props) => {
     setLoaded(true);
   };
 
+  useEffect(() => {
+    
+  });
+  
   const imageStyle = imageLoaded ? props.style : { display: "none" };
 
   return (

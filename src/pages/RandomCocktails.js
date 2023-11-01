@@ -2,16 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import Layout from "../components/Layout/Layout";
 import CocktailList from "../components/cocktail/CocktailList";
-import { fetch10RandomCocktails } from "../workers/CocktailService";
+import { fetchRandomCocktails } from "../workers/CocktailService";
 
 const RandomCocktails = () => {
   const [cocktailData, setCocktailData] = useState();
 
   useEffect(() => {
-    fetch10RandomCocktails().then((data) => {
+    fetchRandomCocktails().then((data) => {
       setCocktailData(data);
-
-      loadMore();
     });
 
     const handleScroll = debounce(() => {
@@ -30,11 +28,9 @@ const RandomCocktails = () => {
   }, []);
 
   const loadMore = () => {
-    fetch10RandomCocktails().then((data) => {
-      setCocktailData((prevData) => ({
-        ...prevData,
-        drinks: [...prevData.drinks, ...data.drinks],
-      }));
+    fetchRandomCocktails().then((data) => {
+      setCocktailData((prevData) => [...prevData, ...data]);
+
     });
   };
 
