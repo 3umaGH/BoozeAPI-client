@@ -46,8 +46,6 @@ export const fetchCocktailsBy = async (
   const queryString = queryParams.join("&");
   const link = `${BASE_PATH}/search/${queryString ? `?${queryString}` : ""}`;
 
-
-  console.log("link:", link)
   return fetchData(link);
 };
 
