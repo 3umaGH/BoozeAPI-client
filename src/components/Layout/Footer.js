@@ -19,7 +19,7 @@ const Footer = () => {
           textDecoration: "none",
         }}
       >
-        Cocktails Browser
+        BoozeAPI
       </Typography>
 
       <br />

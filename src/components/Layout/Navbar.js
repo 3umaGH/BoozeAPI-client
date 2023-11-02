@@ -56,7 +56,7 @@ function Navbar() {
               textDecoration: "none",
             }}
           >
-            Cocktails Browser
+            BoozeAPI
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -117,7 +117,7 @@ function Navbar() {
               textDecoration: "none",
             }}
           >
-            Cocktails
+            BoozeAPI
           </Typography>
           <Box
             sx={{

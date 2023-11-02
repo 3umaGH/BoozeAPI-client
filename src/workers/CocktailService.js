@@ -1,4 +1,4 @@
-const BASE_PATH = `https://cocktail-db-api.vercel.app`;
+const BASE_PATH = `http://95.179.187.231/api`;
 
 const fetchData = async (link) => {
   const response = await fetch(link);

@@ -9,6 +9,8 @@ import {
   Collapse,
   Divider,
   IconButton,
+  Container,
+  Grid,
 } from "@mui/material";
 
 import {
@@ -18,32 +20,22 @@ import {
   Share as ShareIcon,
   ExpandMore as ExpandMoreIcon,
   FiberManualRecord as FiberManualRecordIcon,
+  Close as CloseIcon,
 } from "@mui/icons-material";
 
 import Image from "./Image";
 import { parseIngredients } from "../../workers/CocktailService";
 import withFavorites from "../hoc/WithFavorites";
+import BasicModal from "./BasicModal";
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
-
-const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
-  const [expanded, setExpanded] = useState(false);
-  const [isFavorited, setFavorited] = useState(false); // Used to re-render for the icon to update
+const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
+  const [isFavorited, setFavorited] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   const shareLink = `https://twitter.com/intent/tweet?text=Check out this ${drink.name} cocktail recipe at ${window.location.origin}/cocktail/${drink.id}`;
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const handleCloseDetails = () => setDetailsOpen(false);
+  const handleOpenDetails = () => setDetailsOpen(true);
 
   const handleAddToFavorites = () => {
     setFavorited(!isFavorited);
@@ -51,15 +43,14 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
   };
 
   useEffect(() => {
-    setExpanded(isExpanded);
     setFavorited(isInFavorites(drink.id));
-  }, [drink, isExpanded, isInFavorites]);
+  }, [drink, isInFavorites]);
 
   const drinkThumb = (
     <>
       <Box
         align="center"
-        onClick={handleExpandClick}
+        onClick={handleOpenDetails}
         sx={{ cursor: "pointer" }}
       >
         <Image
@@ -82,7 +73,7 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
         <LiquorIcon fontSize="small" color="success" />
       )}
 
-      <Typography sx={{ ml: 0.5 }} variant="caption">
+      <Typography sx={{ ml: 0.5, mr: 2.5 }} variant="caption">
         {drink.alcoholic}
       </Typography>
     </>
@@ -95,101 +86,193 @@ const Cocktail = ({ drink, isExpanded, toggleFavorite, isInFavorites }) => {
     </>
   );
 
+  const drinkIngredients = (
+    <>
+      {drink.ingredients.map((ingredient, index) => (
+        <Typography variant="body2" key={index} sx={{ mb: 2 }}>
+          <FiberManualRecordIcon
+            sx={{ fontSize: 10 }}
+            color="action"
+            fontSize="small"
+          />{" "}
+          {ingredient.amount} - {ingredient.name}
+        </Typography>
+      ))}
+    </>
+  );
+
   return (
-    <Box sx={{ width: "300px", mt: 2, mr: 1 }}>
-      <Card sx={{}}>
-        <CardContent>
-          <Typography
-            variant="h5"
-            align="center"
-            whiteSpace="nowrap"
-            color="text.primary"
-            textOverflow="ellepsis"
-            overflow="hidden"
-            gutterBottom
-          >
-            {drink.name}
-          </Typography>
-
-          {drinkThumb}
-
-          <Box
-            sx={{
-              display: "flex",
-              mt: 1,
+    <>
+      {detailsOpen && (
+        <BasicModal closeCallback={handleCloseDetails}>
+          <CloseIcon
+            style={{
+              color: "gray",
+              cursor: "pointer",
+              position: "absolute",
+              right: "10px",
+              top: "10px",
             }}
-          >
-            {drinkIsAlcoholicElement}
-            {drinkGlassType}
-          </Box>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton
-            aria-label="add to favorites"
-            color={isFavorited ? "error" : ""}
-            onClick={() => handleAddToFavorites()}
-          >
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton
-            aria-label="share"
-            href={shareLink}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            <ShareIcon />
-          </IconButton>
+            onClick={handleCloseDetails}
+          ></CloseIcon>
 
-          <Typography
-            sx={{
-              m: "auto",
-              p: 0.5,
-              pl: 1,
-              pr: 1,
-              border: 1,
-              borderRadius: 4,
-              borderColor: "primary.main",
-            }}
-            variant="caption"
-          >
-            {drink.category}
-          </Typography>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2} justifyContent="center">
+              <Grid item md={6} align="center">
+                <Typography variant="h4" sx={{ mb: 0.5 }}>
+                  {drink.name}
+                </Typography>
 
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
+                <Container sx={{ mb: 1 }}>
+                  <Image
+                    style={{
+                      width: "100%",
+                      maxWidth: "350px",
+                      borderRadius: "5%",
+                      border: "1px solid #999",
+                      backgroundColor: "rgba(217, 244, 255, 0.6)",
+                      padding: "7px",
+                      boxShadow: "4px 4px 7px #aaa",
+                    }}
+                    src={
+                      "https://www.thecocktaildb.com/images/media/drink/nkwr4c1606770558.jpg"
+                    }
+                    alt={"Cocktail"}
+                  />
+                </Container>
 
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent align="center">
-            <Typography variant="h6" paragraph>
-              Ingredients:
-            </Typography>
-            {drink.ingredients.map((ingredient, index) => (
-              <Typography variant="body2" key={index} sx={{ mb: 2 }}>
-                <FiberManualRecordIcon
-                  sx={{ fontSize: 10 }}
-                  color="action"
+                <LiquorIcon
                   fontSize="small"
-                />{" "}
-                {ingredient.amount} - {ingredient.name}
-              </Typography>
-            ))}
+                  color={drink.alcoholic === "Alcoholic" ? "error" : "success"}
+                />
 
-            <Divider />
-            <Typography sx={{ mt: 2 }} variant="h6" paragraph>
-              Instructions:
+                <Typography sx={{ ml: 0.5, mr: 2.5 }} variant="subtitle">
+                  {drink.alcoholic}
+                </Typography>
+
+                <WineBarOutlinedIcon fontSize="small" />
+                <Typography variant="subtitle">{drink.glassType}</Typography>
+              </Grid>
+              <Grid item xs={12} md={12} lg={4} align="center">
+                <Typography variant="h5" sx={{ mb: 0.5, mt: 1 }}>
+                  Ingredients
+                </Typography>
+                <Divider sx={{ mb: 3 }} />
+                {drink.ingredients.map((ingredient, index) => (
+                  <>
+                    <Typography
+                      variant="subtitle1"
+                      key={index}
+                      sx={{ mb: 2, lineHeight: "1.3" }}
+                    >
+                      <strong>{ingredient.name}</strong>
+                      <br />
+                      {ingredient.amount}
+                    </Typography>
+                  </>
+                ))}
+
+                <Divider sx={{ mb: 2 }} />
+
+                <Typography variant="h5" sx={{ mb: 1 }}>
+                  <i>Instructions:</i>
+                </Typography>
+                <i>{drink.instructions}</i>
+                <i>{drink.instructions}</i>
+                <br />
+
+                <Divider sx={{ m: 2 }} />
+
+                <Typography
+                  sx={{
+                    p: 0.5,
+                    pl: 1,
+                    pr: 1,
+                    border: 1,
+                    borderRadius: 4,
+                    borderColor: "primary.main",
+                  }}
+                  variant="h6"
+                >
+                  {drink.category}
+                </Typography>
+              </Grid>
+            </Grid>
+          </Box>
+        </BasicModal>
+      )}
+
+      <Box sx={{ width: "300px", mt: 2, mr: 1 }}>
+        <Card sx={{}}>
+          <CardContent>
+            <Typography
+              variant="h5"
+              align="center"
+              whiteSpace="nowrap"
+              color="text.primary"
+              textOverflow="ellepsis"
+              overflow="hidden"
+              gutterBottom
+            >
+              {drink.name}
             </Typography>
-            <Typography variant="body2">{drink.instructions}</Typography>
+
+            {drinkThumb}
+
+            <Box
+              sx={{
+                display: "flex",
+                mt: 1,
+              }}
+            >
+              {drinkIsAlcoholicElement}
+              {drinkGlassType}
+            </Box>
           </CardContent>
-        </Collapse>
-      </Card>
-    </Box>
+          <CardActions disableSpacing>
+            <IconButton
+              aria-label="add to favorites"
+              color={isFavorited ? "error" : ""}
+              onClick={() => handleAddToFavorites()}
+            >
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton
+              aria-label="share"
+              href={shareLink}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <ShareIcon />
+            </IconButton>
+
+            <Typography
+              sx={{
+                m: "auto",
+                p: 0.5,
+                pl: 1,
+                pr: 1,
+                border: 1,
+                borderRadius: 4,
+                borderColor: "primary.main",
+              }}
+              variant="caption"
+            >
+              {drink.category}
+            </Typography>
+
+            <IconButton
+              style={{ cursor: "pointer" }}
+              onClick={handleOpenDetails}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+
+          </CardActions>
+        </Card>
+      </Box>
+    </>
   );
 };
 

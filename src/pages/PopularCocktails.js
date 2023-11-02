@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Modal, Typography } from "@mui/material";
 import Layout from "../components/Layout/Layout";
 import CocktailList from "../components/cocktail/CocktailList";
 import { fetchPopularCocktails } from "../workers/CocktailService";
@@ -18,6 +18,7 @@ function Main() {
           flexWrap: "wrap",
         }}
       >
+
         <CocktailList fetchPromise={fetchPopularCocktails()} />
       </Box>
     </Layout>
