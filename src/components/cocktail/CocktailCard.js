@@ -46,61 +46,6 @@ const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
     setFavorited(isInFavorites(drink.id));
   }, [drink, isInFavorites]);
 
-  const drinkThumb = (
-    <>
-      <Box
-        align="center"
-        onClick={handleOpenDetails}
-        sx={{ cursor: "pointer" }}
-      >
-        <Image
-          src={drink.image}
-          alt={"Cocktail"}
-          style={{
-            width: "200px",
-            borderRadius: "5%",
-          }}
-        />
-      </Box>
-    </>
-  );
-
-  const drinkIsAlcoholicElement = (
-    <>
-      {drink.alcoholic === "Alcoholic" ? (
-        <LiquorIcon fontSize="small" color="error" />
-      ) : (
-        <LiquorIcon fontSize="small" color="success" />
-      )}
-
-      <Typography sx={{ ml: 0.5, mr: 2.5 }} variant="caption">
-        {drink.alcoholic}
-      </Typography>
-    </>
-  );
-
-  const drinkGlassType = (
-    <>
-      <WineBarOutlinedIcon sx={{ ml: "auto" }} fontSize="small" />
-      <Typography variant="caption">{drink.glassType}</Typography>
-    </>
-  );
-
-  const drinkIngredients = (
-    <>
-      {drink.ingredients.map((ingredient, index) => (
-        <Typography variant="body2" key={index} sx={{ mb: 2 }}>
-          <FiberManualRecordIcon
-            sx={{ fontSize: 10 }}
-            color="action"
-            fontSize="small"
-          />{" "}
-          {ingredient.amount} - {ingredient.name}
-        </Typography>
-      ))}
-    </>
-  );
-
   return (
     <>
       {detailsOpen && (
@@ -134,9 +79,7 @@ const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
                       padding: "7px",
                       boxShadow: "4px 4px 7px #aaa",
                     }}
-                    src={
-                      "https://www.thecocktaildb.com/images/media/drink/nkwr4c1606770558.jpg"
-                    }
+                    src={drink.image}
                     alt={"Cocktail"}
                   />
                 </Container>
@@ -178,7 +121,6 @@ const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
                   <i>Instructions:</i>
                 </Typography>
                 <i>{drink.instructions}</i>
-                <i>{drink.instructions}</i>
                 <br />
 
                 <Divider sx={{ m: 2 }} />
@@ -217,16 +159,37 @@ const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
               {drink.name}
             </Typography>
 
-            {drinkThumb}
-
+            <Box
+              align="center"
+              onClick={handleOpenDetails}
+              sx={{ cursor: "pointer" }}
+            >
+              <Image
+                src={drink.image}
+                alt={"Cocktail"}
+                style={{
+                  width: "200px",
+                  borderRadius: "5%",
+                }}
+              />
+            </Box>
             <Box
               sx={{
                 display: "flex",
                 mt: 1,
               }}
             >
-              {drinkIsAlcoholicElement}
-              {drinkGlassType}
+              <LiquorIcon
+                fontSize="small"
+                color={drink.alcoholic === "Alcoholic" ? "error" : "success"}
+              />
+
+              <Typography sx={{ ml: 0.5, mr: 2.5 }} variant="caption">
+                {drink.alcoholic}
+              </Typography>
+
+              <WineBarOutlinedIcon fontSize="small" sx={{ ml: "auto" }} />
+              <Typography variant="caption">{drink.glassType}</Typography>
             </Box>
           </CardContent>
           <CardActions disableSpacing>
@@ -268,7 +231,6 @@ const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
             >
               <ExpandMoreIcon />
             </IconButton>
-
           </CardActions>
         </Card>
       </Box>

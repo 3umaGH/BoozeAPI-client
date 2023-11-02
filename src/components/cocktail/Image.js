@@ -22,7 +22,7 @@ const Image = (props) => {
       )}
 
       <img
-        src={props.src}
+        src={props.src.replace("boozeapi.com","95.179.187.231")}
         alt={props.alt}
         style={imageStyle}
         onLoad={loadHandler}
