@@ -24,7 +24,7 @@ function SingleCocktail(props) {
             fetchPromise={fetchCocktail(false, [cocktailID])}
           />
         ) : (
-          <Typography variant="h6">Invalid cocktail ID</Typography>
+          <Typography sx={{mt:4}} variant="h6">Cocktail not found</Typography>
         )}
       </Box>
     </Layout>

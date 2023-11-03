@@ -14,9 +14,11 @@ import {
 } from "@mui/material";
 
 import { fetchSearchParameters } from "../../workers/CocktailService";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { useLocation } from "react-router-dom";
 
 const QuerySearch = ({ queryCallback }) => {
+  const location = useLocation();
+
   const [availableSearchParams, setAvailableSearchParams] = useState({
     category: [],
     glassType: [],
@@ -40,18 +42,93 @@ const QuerySearch = ({ queryCallback }) => {
         ingredients: Array.from(data.ingredients),
         alcoholic: Array.from(data.alcoholic),
       }));
+
       setLoaded(true);
     });
   }, []);
 
+  const setQueryParamIfExists = (
+    paramName,
+    setter,
+    availableParams,
+    isArray
+  ) => {
+    const paramValue =
+      new URLSearchParams(location.search).get(paramName) || "";
+
+    if (isArray) {
+      const array = paramValue.split(",").filter((entry) => {
+        return availableParams[paramName].includes(entry)
+      })
+
+      setter(array);
+
+    } else if (availableParams[paramName].includes(paramValue))
+      setter(paramValue);
+  };
+
   useEffect(() => {
+    // Load URL search params when available parameters update.
+
+    setQueryParamIfExists(
+      "category",
+      setCategoryQuery,
+      availableSearchParams,
+      false
+    );
+
+    setQueryParamIfExists(
+      "glassType",
+      setGlassTypeQuery,
+      availableSearchParams,
+      false
+    );
+
+    setQueryParamIfExists(
+      "ingredients",
+      setIngredientsQuery,
+      availableSearchParams,
+      true
+    );
+
+    setQueryParamIfExists(
+      "alcoholic",
+      setAlcoholicQuery,
+      availableSearchParams,
+      false
+    );
+
+  }, [availableSearchParams]);
+
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams();
+
+    if (categoryQuery !== "") {
+      urlSearchParams.set("category", categoryQuery);
+    }
+
+    if (glassTypeQuery !== "") {
+      urlSearchParams.set("glassType", glassTypeQuery);
+    }
+
+    if (ingredientsQuery !== "") {
+      urlSearchParams.set("ingredients", ingredientsQuery);
+    }
+
+    if (alcoholicQuery !== "") {
+      urlSearchParams.set("alcoholic", alcoholicQuery);
+    }
+
+    const newSearch = urlSearchParams.toString();
+    window.history.pushState(null, "", newSearch ? `?${newSearch}` : "");
+
     if (
+      // Checking if at least one query is present.
       categoryQuery !== "" ||
       glassTypeQuery !== "" ||
       ingredientsQuery.length !== 0 ||
       alcoholicQuery !== ""
     ) {
-      console.log(ingredientsQuery.length);
       queryCallback(
         categoryQuery,
         glassTypeQuery,
