@@ -5,7 +5,6 @@ import {
   MenuItem,
   Select,
   FormControl,
-  Typography,
   Autocomplete,
   TextField,
   Chip,
@@ -26,10 +25,21 @@ const QuerySearch = ({ queryCallback }) => {
     alcoholic: [],
   });
 
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedGlassType, setSelectedGlassType] = useState("");
-  const [selectedIngredients, setSelectedIngredients] = useState("");
-  const [selectedIsAlcoholic, setSelectedIsAlcoholic] = useState("");
+  const [searchParams, setSearchParams] = useState({
+    category: "",
+    glassType: "",
+    ingredients: [],
+    alcoholic: "",
+  });
+
+  const isSearchParamsEmpty = () => {
+    return (
+      searchParams.category === "" &&
+      searchParams.glassType === "" &&
+      searchParams.ingredients.length === 0 &&
+      searchParams.alcoholic === ""
+    );
+  };
 
   const [isLoaded, setLoaded] = useState(false);
 
@@ -47,107 +57,52 @@ const QuerySearch = ({ queryCallback }) => {
     });
   }, []);
 
-  const setQueryParamIfExists = (
-    paramName,
-    setter,
-    availableParams,
-    isArray
-  ) => {
-    const paramValue =
-      new URLSearchParams(location.search).get(paramName) || "";
-
-    if (isArray) {
-      const array = paramValue.split(",").filter((entry) => {
-        return availableParams[paramName].includes(entry);
-      });
-
-      setter(array);
-    } else if (availableParams[paramName].includes(paramValue))
-      setter(paramValue);
-  };
-
   useEffect(() => {
     // Load URL search params when available parameters update.
+    if (availableSearchParams.ingredients.length === 0) return;
 
-    setQueryParamIfExists(
-      "category",
-      setSelectedCategory,
-      availableSearchParams,
-      false
-    );
+    const params = new URLSearchParams(location.search);
+    for (const key of Object.keys(searchParams)) {
+      let paramValue = params.get(key);
 
-    setQueryParamIfExists(
-      "glassType",
-      setSelectedGlassType,
-      availableSearchParams,
-      false
-    );
+      if (paramValue !== null && paramValue !== "") {
+        if (key === "ingredients") {
+          // We know that ingredients is an array, so need to split it.
+          const array = paramValue.split(",");
+          paramValue = array;
+        }
 
-    setQueryParamIfExists(
-      "ingredients",
-      setSelectedIngredients,
-      availableSearchParams,
-      true
-    );
-
-    setQueryParamIfExists(
-      "alcoholic",
-      setSelectedIsAlcoholic,
-      availableSearchParams,
-      false
-    );
+        setSearchParams((prev) => {
+          return { ...prev, [key]: paramValue };
+        });
+      }
+    }
   }, [availableSearchParams]);
 
   useEffect(() => {
     const urlSearchParams = new URLSearchParams();
 
-    if (selectedCategory !== "")
-      urlSearchParams.set("category", selectedCategory);
+    for (const key of Object.keys(searchParams)) {
+      let isArray = Array.isArray(searchParams[key]);
+      let val = searchParams[key];
 
-    if (selectedGlassType !== "")
-      urlSearchParams.set("glassType", selectedGlassType);
-
-    if (selectedIngredients !== "")
-      urlSearchParams.set("ingredients", selectedIngredients);
-
-    if (selectedIsAlcoholic !== "")
-      urlSearchParams.set("alcoholic", selectedIsAlcoholic);
+      if (val !== "")
+        if (isArray) val.length > 0 && urlSearchParams.set(key, val);
+        else urlSearchParams.set(key, val);
+    }
 
     const newSearch = urlSearchParams.toString();
     window.history.pushState(null, "", newSearch ? `?${newSearch}` : "");
 
-    if (
-      // Checking if at least one selected parameter is present.
-      selectedCategory !== "" ||
-      selectedGlassType !== "" ||
-      selectedIngredients.length !== 0 ||
-      selectedIsAlcoholic !== ""
-    ) {
+    if (!isSearchParamsEmpty()) {
       queryCallback(
-        selectedCategory,
-        selectedGlassType,
-        selectedIngredients,
-        selectedIsAlcoholic
+        searchParams.category,
+        searchParams.glassType,
+        searchParams.ingredients,
+        searchParams.alcoholic
       );
     }
-    /* eslint-disable react-hooks/exhaustive-deps */
-  }, [
-    selectedCategory,
-    selectedGlassType,
-    selectedIngredients,
-    selectedIsAlcoholic,
-  ]);
-
-  const handleOptionSelected = (event, value) => {
-    if (value !== null && !selectedIngredients.includes(value))
-      setSelectedIngredients((prevData) => [...prevData, value]);
-  };
-
-  const handleIngredientDelete = (value) => {
-    setSelectedIngredients((prevData) =>
-      prevData.filter((item) => item !== value)
-    );
-  };
+  }, [searchParams]);
 
   return (
     <Container align="center">
@@ -155,10 +110,12 @@ const QuerySearch = ({ queryCallback }) => {
         <InputLabel>Category</InputLabel>
         <Select
           label="Category"
-          value={selectedCategory}
-          onChange={(e) => {
-            setSelectedCategory(e.target.value);
-          }}
+          value={searchParams.category}
+          onChange={(e) =>
+            setSearchParams((prev) => {
+              return { ...prev, category: e.target.value };
+            })
+          }
         >
           <MenuItem value="">
             <em>{isLoaded ? "None" : "Loading..."}</em>
@@ -177,10 +134,12 @@ const QuerySearch = ({ queryCallback }) => {
         <InputLabel>Alcoholic</InputLabel>
         <Select
           label="Alcoholic"
-          value={selectedIsAlcoholic}
-          onChange={(e) => {
-            setSelectedIsAlcoholic(e.target.value);
-          }}
+          value={searchParams.alcoholic}
+          onChange={(e) =>
+            setSearchParams((prev) => {
+              return { ...prev, alcoholic: e.target.value };
+            })
+          }
         >
           <MenuItem value="">
             <em>{isLoaded ? "None" : "Loading..."}</em>
@@ -199,10 +158,12 @@ const QuerySearch = ({ queryCallback }) => {
         <InputLabel>Glass Type</InputLabel>
         <Select
           label="Glass Type"
-          value={selectedGlassType}
-          onChange={(e) => {
-            setSelectedGlassType(e.target.value);
-          }}
+          value={searchParams.glassType}
+          onChange={(e) =>
+            setSearchParams((prev) => {
+              return { ...prev, glassType: e.target.value };
+            })
+          }
         >
           <MenuItem value="">
             <em>{isLoaded ? "None" : "Loading..."}</em>
@@ -225,24 +186,37 @@ const QuerySearch = ({ queryCallback }) => {
         }}
         component="ul"
       >
-        {selectedIngredients &&
-          selectedIngredients.map((data) => {
-            return (
-              <ListItem key={data}>
-                <Chip
-                  label={data}
-                  onDelete={() => handleIngredientDelete(data)}
-                />
-              </ListItem>
-            );
-          })}
+        {searchParams.ingredients.map((ingredient) => {
+          return (
+            <ListItem key={ingredient}>
+              <Chip
+                label={ingredient}
+                onDelete={() =>
+                  setSearchParams((prev) => {
+                    const newArray = searchParams.ingredients.filter(
+                      (item) => item !== ingredient
+                    );
+                    return { ...prev, ingredients: [...newArray] };
+                  })
+                }
+              />
+            </ListItem>
+          );
+        })}
       </Paper>
 
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <Autocomplete
           disablePortal
           options={availableSearchParams.ingredients}
-          onChange={handleOptionSelected}
+          onChange={(e, value) => {
+            setSearchParams((prev) => {
+              const prevArray = searchParams.ingredients;
+
+              if (value !== null && !searchParams.ingredients.includes(value))
+                return { ...prev, ingredients: [...prevArray, value] };
+            });
+          }}
           sx={{ width: 300, height: 100 }}
           renderInput={(params) => (
             <TextField {...params} label="Ingredients" />
