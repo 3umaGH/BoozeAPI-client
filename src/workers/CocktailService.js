@@ -1,4 +1,4 @@
-const BASE_PATH = `http://95.179.187.231/api`;
+const BASE_PATH = `https://www.boozeapi.com/api`;
 
 const fetchData = async (link) => {
   const response = await fetch(link);

@@ -26,7 +26,8 @@ import {
 import Image from "./Image";
 import { parseIngredients } from "../../workers/CocktailService";
 import withFavorites from "../hoc/WithFavorites";
-import BasicModal from "./BasicModal";
+import BasicModal from "../Layout/Modal/BasicModal";
+
 
 const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
   const [isFavorited, setFavorited] = useState(false);
@@ -102,17 +103,15 @@ const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
                 {drink.ingredients.map((ingredient, index) => (
-                  <>
-                    <Typography
-                      variant="subtitle1"
-                      key={index}
-                      sx={{ mb: 2, lineHeight: "1.3" }}
-                    >
-                      <strong>{ingredient.name}</strong>
-                      <br />
-                      {ingredient.amount}
-                    </Typography>
-                  </>
+                  <Typography
+                    variant="subtitle1"
+                    key={index}
+                    sx={{ mb: 2, lineHeight: "1.3" }}
+                  >
+                    <strong>{ingredient.name}</strong>
+                    <br />
+                    {ingredient.amount}
+                  </Typography>
                 ))}
 
                 <Divider sx={{ mb: 2 }} />
