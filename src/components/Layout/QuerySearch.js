@@ -62,6 +62,8 @@ const QuerySearch = ({ queryCallback }) => {
     if (availableSearchParams.ingredients.length === 0) return;
 
     const params = new URLSearchParams(location.search);
+    const updatedSearchParams = { ...searchParams };
+
     for (const key of Object.keys(searchParams)) {
       let paramValue = params.get(key);
 
@@ -69,14 +71,17 @@ const QuerySearch = ({ queryCallback }) => {
         if (key === "ingredients") {
           // We know that ingredients is an array, so need to split it.
           const array = paramValue.split(",");
-          paramValue = array;
+
+          paramValue = array.length > 8 ? array.slice(0, 8) : array;
         }
 
-        setSearchParams((prev) => {
-          return { ...prev, [key]: paramValue };
-        });
+        updatedSearchParams[key] = paramValue;
       }
     }
+
+    setSearchParams((prev) => {
+      return { ...updatedSearchParams };
+    });
   }, [availableSearchParams]);
 
   useEffect(() => {
@@ -108,6 +113,7 @@ const QuerySearch = ({ queryCallback }) => {
     <Container align="center">
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel>Category</InputLabel>
+
         <Select
           label="Category"
           value={searchParams.category}
@@ -181,34 +187,38 @@ const QuerySearch = ({ queryCallback }) => {
       <Paper
         sx={{
           display: "flex",
-          justifyItems: "center",
+          flexDirection: "row",
+          flexWrap: "wrap",
           justifyContent: "center",
+          mb: 2,
         }}
-        component="ul"
       >
         {searchParams.ingredients.map((ingredient) => {
           return (
-            <ListItem key={ingredient}>
-              <Chip
-                label={ingredient}
-                onDelete={() =>
-                  setSearchParams((prev) => {
-                    const newArray = searchParams.ingredients.filter(
-                      (item) => item !== ingredient
-                    );
-                    return { ...prev, ingredients: [...newArray] };
-                  })
-                }
-              />
-            </ListItem>
+            <Chip
+              label={ingredient}
+              sx={{ mx: 2, mb: 2 }}
+              onDelete={() =>
+                setSearchParams((prev) => {
+                  const newArray = searchParams.ingredients.filter(
+                    (item) => item !== ingredient
+                  );
+                  return { ...prev, ingredients: [...newArray] };
+                })
+              }
+            />
           );
         })}
       </Paper>
 
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl
+        variant="standard"
+        sx={{ m: 1, width: "50%", maxWidth: 300, minWidth: 250 }}
+      >
         <Autocomplete
           disablePortal
           options={availableSearchParams.ingredients}
+          disabled={searchParams.ingredients.length >= 8}
           onChange={(e, value) => {
             setSearchParams((prev) => {
               const prevArray = searchParams.ingredients;
@@ -217,7 +227,6 @@ const QuerySearch = ({ queryCallback }) => {
                 return { ...prev, ingredients: [...prevArray, value] };
             });
           }}
-          sx={{ width: 300, height: 100 }}
           renderInput={(params) => (
             <TextField {...params} label="Ingredients" />
           )}
