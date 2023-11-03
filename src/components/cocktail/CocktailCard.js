@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { styled } from "@mui/material/styles";
+import withFavorites from "../hoc/WithFavorites";
+import BasicModal from "../Layout/Modal/BasicModal";
+import Image from "./Image";
+
 import {
   Box,
   Typography,
@@ -22,12 +25,6 @@ import {
   FiberManualRecord as FiberManualRecordIcon,
   Close as CloseIcon,
 } from "@mui/icons-material";
-
-import Image from "./Image";
-import { parseIngredients } from "../../workers/CocktailService";
-import withFavorites from "../hoc/WithFavorites";
-import BasicModal from "../Layout/Modal/BasicModal";
-
 
 const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
   const [isFavorited, setFavorited] = useState(false);

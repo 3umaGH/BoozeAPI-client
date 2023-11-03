@@ -1,9 +1,5 @@
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { useState } from "react";
-import { useEffect } from "react";
 
 const style = {
   position: "absolute",
