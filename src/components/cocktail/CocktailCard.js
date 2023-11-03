@@ -78,6 +78,7 @@ const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
                       boxShadow: "4px 4px 7px #aaa",
                     }}
                     src={drink.image}
+                    minSkeletonHeight={350}
                     alt={"Cocktail"}
                   />
                 </Container>

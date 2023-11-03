@@ -19,7 +19,7 @@ export const fetchCocktail = async (useRandom, ids) => {
 };
 
 export const fetchCocktailsByName = async (name) => {
-  const link = `${BASE_PATH}/search/?name=${name}`;
+  const link = `${BASE_PATH}/cocktail/?name=${name}`;
 
   return fetchData(link);
 };
@@ -45,7 +45,7 @@ export const fetchCocktailsBy = async (
     queryParams.push(`alcoholic=${encodeURIComponent(alcoholic)}`);
 
   const queryString = queryParams.join("&");
-  const link = `${BASE_PATH}/search/${queryString ? `?${queryString}` : ""}`;
+  const link = `${BASE_PATH}/cocktail/${queryString ? `?${queryString}` : ""}`;
 
   return fetchData(link);
 };

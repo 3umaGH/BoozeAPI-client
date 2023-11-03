@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
-const Image = ( {minHeight = 200, ...props}) => {
+const Image = ( {minSkeletonHeight = 200, ...props}) => {
   const [imageLoaded, setLoaded] = useState(false);
 
   const loadHandler = () => {
@@ -17,7 +17,7 @@ const Image = ( {minHeight = 200, ...props}) => {
       {!imageLoaded && (
         <Skeleton
           variant="rectangular"
-          sx={{ width: "auto", minHeight: `${minHeight}px` }}
+          sx={{ width: "auto", minHeight: `${minSkeletonHeight}px` }}
         />
       )}
 
