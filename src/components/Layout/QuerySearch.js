@@ -10,6 +10,7 @@ import {
   Chip,
   Paper,
   ListItem,
+  Divider,
 } from "@mui/material";
 
 import { fetchSearchParameters } from "../../workers/CocktailService";
@@ -111,127 +112,137 @@ const QuerySearch = ({ queryCallback }) => {
 
   return (
     <Container align="center">
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel>Category</InputLabel>
-
-        <Select
-          label="Category"
-          value={searchParams.category}
-          onChange={(e) =>
-            setSearchParams((prev) => {
-              return { ...prev, category: e.target.value };
-            })
-          }
-        >
-          <MenuItem value="">
-            <em>{isLoaded ? "None" : "Loading..."}</em>
-          </MenuItem>
-
-          {isLoaded &&
-            availableSearchParams.category.map((category, index) => (
-              <MenuItem value={category} key={index}>
-                {category}
-              </MenuItem>
-            ))}
-        </Select>
-      </FormControl>
-
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel>Alcoholic</InputLabel>
-        <Select
-          label="Alcoholic"
-          value={searchParams.alcoholic}
-          onChange={(e) =>
-            setSearchParams((prev) => {
-              return { ...prev, alcoholic: e.target.value };
-            })
-          }
-        >
-          <MenuItem value="">
-            <em>{isLoaded ? "None" : "Loading..."}</em>
-          </MenuItem>
-
-          {isLoaded &&
-            availableSearchParams.alcoholic.map((category, index) => (
-              <MenuItem value={category} key={index}>
-                {category}
-              </MenuItem>
-            ))}
-        </Select>
-      </FormControl>
-
-      <FormControl variant="standard" sx={{ m: 1, mb: 3, minWidth: 120 }}>
-        <InputLabel>Glass Type</InputLabel>
-        <Select
-          label="Glass Type"
-          value={searchParams.glassType}
-          onChange={(e) =>
-            setSearchParams((prev) => {
-              return { ...prev, glassType: e.target.value };
-            })
-          }
-        >
-          <MenuItem value="">
-            <em>{isLoaded ? "None" : "Loading..."}</em>
-          </MenuItem>
-
-          {isLoaded &&
-            availableSearchParams.glassType.map((category, index) => (
-              <MenuItem value={category} key={index}>
-                {category}
-              </MenuItem>
-            ))}
-        </Select>
-      </FormControl>
-
       <Paper
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "center",
+          backgroundColor: "rgba(250, 250, 250,1)",
           mb: 2,
         }}
       >
-        {searchParams.ingredients.map((ingredient) => {
-          return (
-            <Chip
-              label={ingredient}
-              sx={{ mx: 2, mb: 2 }}
-              onDelete={() =>
-                setSearchParams((prev) => {
-                  const newArray = searchParams.ingredients.filter(
-                    (item) => item !== ingredient
-                  );
-                  return { ...prev, ingredients: [...newArray] };
-                })
-              }
-            />
-          );
-        })}
-      </Paper>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel>Category</InputLabel>
 
-      <FormControl
-        variant="standard"
-        sx={{ m: 1, width: "50%", maxWidth: 300, minWidth: 250 }}
-      >
-        <Autocomplete
-          disablePortal
-          options={availableSearchParams.ingredients}
-          disabled={searchParams.ingredients.length >= 8}
-          onChange={(e, value) => {
-            setSearchParams((prev) => {
-              const prevArray = searchParams.ingredients;
+          <Select
+            label="Category"
+            value={searchParams.category}
+            onChange={(e) =>
+              setSearchParams((prev) => {
+                return { ...prev, category: e.target.value };
+              })
+            }
+          >
+            <MenuItem value="">
+              <em>{isLoaded ? "None" : "Loading..."}</em>
+            </MenuItem>
 
-              if (value !== null && !searchParams.ingredients.includes(value))
-                return { ...prev, ingredients: [...prevArray, value] };
-            });
+            {isLoaded &&
+              availableSearchParams.category.map((category, index) => (
+                <MenuItem value={category} key={index}>
+                  {category}
+                </MenuItem>
+              ))}
+          </Select>
+        </FormControl>
+
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel>Alcoholic</InputLabel>
+          <Select
+            label="Alcoholic"
+            value={searchParams.alcoholic}
+            onChange={(e) =>
+              setSearchParams((prev) => {
+                return { ...prev, alcoholic: e.target.value };
+              })
+            }
+          >
+            <MenuItem value="">
+              <em>{isLoaded ? "None" : "Loading..."}</em>
+            </MenuItem>
+
+            {isLoaded &&
+              availableSearchParams.alcoholic.map((category, index) => (
+                <MenuItem value={category} key={index}>
+                  {category}
+                </MenuItem>
+              ))}
+          </Select>
+        </FormControl>
+
+        <FormControl variant="standard" sx={{ m: 1, mb: 3, minWidth: 120 }}>
+          <InputLabel>Glass Type</InputLabel>
+          <Select
+            label="Glass Type"
+            value={searchParams.glassType}
+            onChange={(e) =>
+              setSearchParams((prev) => {
+                return { ...prev, glassType: e.target.value };
+              })
+            }
+          >
+            <MenuItem value="">
+              <em>{isLoaded ? "None" : "Loading..."}</em>
+            </MenuItem>
+
+            {isLoaded &&
+              availableSearchParams.glassType.map((category, index) => (
+                <MenuItem value={category} key={index}>
+                  {category}
+                </MenuItem>
+              ))}
+          </Select>
+        </FormControl>
+        <br></br>
+
+        <FormControl
+          variant="standard"
+          sx={{ m: 1, mb: 2, width: "50%", maxWidth: 400, minWidth: 170 }}
+        >
+          <Autocomplete
+            disablePortal
+            options={availableSearchParams.ingredients}
+            disabled={searchParams.ingredients.length >= 8}
+            onChange={(e, value) => {
+              setSearchParams((prev) => {
+                const prevArray = searchParams.ingredients;
+
+                if (value !== null && !searchParams.ingredients.includes(value))
+                  return { ...prev, ingredients: [...prevArray, value] };
+              });
+            }}
+            renderInput={(params) => (
+              <TextField {...params} label="Ingredients" />
+            )}
+          />
+        </FormControl>
+
+        <Divider width="40%" />
+
+        <div
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            mb: 2,
           }}
-          renderInput={(params) => (
-            <TextField {...params} label="Ingredients" />
-          )}
-        />
-      </FormControl>
+        >
+          {searchParams.ingredients.map((ingredient) => {
+            return (
+              <Chip
+                label={ingredient}
+                sx={{ mx: 2, my: 2 }}
+                onDelete={() =>
+                  setSearchParams((prev) => {
+                    const newArray = searchParams.ingredients.filter(
+                      (item) => item !== ingredient
+                    );
+                    return { ...prev, ingredients: [...newArray] };
+                  })
+                }
+              />
+            );
+          })}
+        </div>
+      </Paper>
     </Container>
   );
 };
