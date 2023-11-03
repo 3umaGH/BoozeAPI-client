@@ -26,10 +26,10 @@ const QuerySearch = ({ queryCallback }) => {
     alcoholic: [],
   });
 
-  const [categoryQuery, setCategoryQuery] = useState("");
-  const [glassTypeQuery, setGlassTypeQuery] = useState("");
-  const [ingredientsQuery, setIngredientsQuery] = useState("");
-  const [alcoholicQuery, setAlcoholicQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedGlassType, setSelectedGlassType] = useState("");
+  const [selectedIngredients, setSelectedIngredients] = useState("");
+  const [selectedIsAlcoholic, setSelectedIsAlcoholic] = useState("");
 
   const [isLoaded, setLoaded] = useState(false);
 
@@ -58,11 +58,10 @@ const QuerySearch = ({ queryCallback }) => {
 
     if (isArray) {
       const array = paramValue.split(",").filter((entry) => {
-        return availableParams[paramName].includes(entry)
-      })
+        return availableParams[paramName].includes(entry);
+      });
 
       setter(array);
-
     } else if (availableParams[paramName].includes(paramValue))
       setter(paramValue);
   };
@@ -72,80 +71,80 @@ const QuerySearch = ({ queryCallback }) => {
 
     setQueryParamIfExists(
       "category",
-      setCategoryQuery,
+      setSelectedCategory,
       availableSearchParams,
       false
     );
 
     setQueryParamIfExists(
       "glassType",
-      setGlassTypeQuery,
+      setSelectedGlassType,
       availableSearchParams,
       false
     );
 
     setQueryParamIfExists(
       "ingredients",
-      setIngredientsQuery,
+      setSelectedIngredients,
       availableSearchParams,
       true
     );
 
     setQueryParamIfExists(
       "alcoholic",
-      setAlcoholicQuery,
+      setSelectedIsAlcoholic,
       availableSearchParams,
       false
     );
-
   }, [availableSearchParams]);
 
   useEffect(() => {
     const urlSearchParams = new URLSearchParams();
 
-    if (categoryQuery !== "") {
-      urlSearchParams.set("category", categoryQuery);
-    }
+    if (selectedCategory !== "")
+      urlSearchParams.set("category", selectedCategory);
 
-    if (glassTypeQuery !== "") {
-      urlSearchParams.set("glassType", glassTypeQuery);
-    }
+    if (selectedGlassType !== "")
+      urlSearchParams.set("glassType", selectedGlassType);
 
-    if (ingredientsQuery !== "") {
-      urlSearchParams.set("ingredients", ingredientsQuery);
-    }
+    if (selectedIngredients !== "")
+      urlSearchParams.set("ingredients", selectedIngredients);
 
-    if (alcoholicQuery !== "") {
-      urlSearchParams.set("alcoholic", alcoholicQuery);
-    }
+    if (selectedIsAlcoholic !== "")
+      urlSearchParams.set("alcoholic", selectedIsAlcoholic);
 
     const newSearch = urlSearchParams.toString();
     window.history.pushState(null, "", newSearch ? `?${newSearch}` : "");
 
     if (
-      // Checking if at least one query is present.
-      categoryQuery !== "" ||
-      glassTypeQuery !== "" ||
-      ingredientsQuery.length !== 0 ||
-      alcoholicQuery !== ""
+      // Checking if at least one selected parameter is present.
+      selectedCategory !== "" ||
+      selectedGlassType !== "" ||
+      selectedIngredients.length !== 0 ||
+      selectedIsAlcoholic !== ""
     ) {
       queryCallback(
-        categoryQuery,
-        glassTypeQuery,
-        ingredientsQuery,
-        alcoholicQuery
+        selectedCategory,
+        selectedGlassType,
+        selectedIngredients,
+        selectedIsAlcoholic
       );
     }
     /* eslint-disable react-hooks/exhaustive-deps */
-  }, [categoryQuery, glassTypeQuery, ingredientsQuery, alcoholicQuery]);
+  }, [
+    selectedCategory,
+    selectedGlassType,
+    selectedIngredients,
+    selectedIsAlcoholic,
+  ]);
 
   const handleOptionSelected = (event, value) => {
-    if (value !== null && !ingredientsQuery.includes(value))
-      setIngredientsQuery((prevData) => [...prevData, value]);
+    if (value !== null && !selectedIngredients.includes(value))
+      setSelectedIngredients((prevData) => [...prevData, value]);
   };
 
   const handleIngredientDelete = (value) => {
-    setIngredientsQuery((prevData) =>
+    setSelectedIngredients((prevData) =>
       prevData.filter((item) => item !== value)
     );
   };
@@ -156,9 +155,9 @@ const QuerySearch = ({ queryCallback }) => {
         <InputLabel>Category</InputLabel>
         <Select
           label="Category"
-          value={categoryQuery}
+          value={selectedCategory}
           onChange={(e) => {
-            setCategoryQuery(e.target.value);
+            setSelectedCategory(e.target.value);
           }}
         >
           <MenuItem value="">
@@ -178,9 +177,9 @@ const QuerySearch = ({ queryCallback }) => {
         <InputLabel>Alcoholic</InputLabel>
         <Select
           label="Alcoholic"
-          value={alcoholicQuery}
+          value={selectedIsAlcoholic}
           onChange={(e) => {
-            setAlcoholicQuery(e.target.value);
+            setSelectedIsAlcoholic(e.target.value);
           }}
         >
           <MenuItem value="">
@@ -200,9 +199,9 @@ const QuerySearch = ({ queryCallback }) => {
         <InputLabel>Glass Type</InputLabel>
         <Select
           label="Glass Type"
-          value={glassTypeQuery}
+          value={selectedGlassType}
           onChange={(e) => {
-            setGlassTypeQuery(e.target.value);
+            setSelectedGlassType(e.target.value);
           }}
         >
           <MenuItem value="">
@@ -226,8 +225,8 @@ const QuerySearch = ({ queryCallback }) => {
         }}
         component="ul"
       >
-        {ingredientsQuery &&
-          ingredientsQuery.map((data) => {
+        {selectedIngredients &&
+          selectedIngredients.map((data) => {
             return (
               <ListItem key={data}>
                 <Chip
