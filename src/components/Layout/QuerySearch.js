@@ -206,6 +206,7 @@ const QuerySearch = ({ queryCallback }) => {
 
                 if (value !== null && !searchParams.ingredients.includes(value))
                   return { ...prev, ingredients: [...prevArray, value] };
+                else return prev;
               });
             }}
             renderInput={(params) => (
@@ -229,6 +230,7 @@ const QuerySearch = ({ queryCallback }) => {
             return (
               <Chip
                 label={ingredient}
+                key={ingredient}
                 sx={{ mx: 2, my: 2 }}
                 onDelete={() =>
                   setSearchParams((prev) => {
