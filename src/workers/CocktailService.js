@@ -65,3 +65,8 @@ export const fetchSearchParameters = async () => {
 
   return fetchData(link);
 };
+
+export const fetchIngredient = async (id) => {
+  const link = `${BASE_PATH}/ingredient/${id}`;
+  return fetchData(link);
+};

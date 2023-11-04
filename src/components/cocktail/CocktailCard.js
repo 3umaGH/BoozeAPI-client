@@ -23,6 +23,7 @@ import {
   ExpandMore as ExpandMoreIcon,
   Close as CloseIcon,
 } from "@mui/icons-material";
+import { Ingredient } from "./Ingredient";
 
 const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
   const [isFavorited, setFavorited] = useState(false);
@@ -99,15 +100,12 @@ const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
                 {drink.ingredients.map((ingredient, index) => (
-                  <Typography
-                    variant="subtitle1"
+                  <Ingredient
                     key={index}
-                    sx={{ mb: 2, lineHeight: "1.3" }}
-                  >
-                    <strong>{ingredient.name}</strong>
-                    <br />
-                    {ingredient.amount}
-                  </Typography>
+                    id={ingredient.id}
+                    name={ingredient.name}
+                    amount={ingredient.amount}
+                  />
                 ))}
 
                 <Divider sx={{ mb: 2 }} />

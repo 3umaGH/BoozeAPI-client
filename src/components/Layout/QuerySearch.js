@@ -291,6 +291,10 @@ const QuerySearch = ({ queryCallback, emptySearchCallback }) => {
         </Collapse>
         <IconButton
           aria-label="expand more"
+          sx={{
+            transform: `rotate(${isCollapsed ? 180 : 0}deg)`,
+            transition: "transform 0.5s ease-in-out",
+          }}
           onClick={() => setCollapsed(!isCollapsed)}
         >
           <ExpandMoreIcon />
