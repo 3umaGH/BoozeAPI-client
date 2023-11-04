@@ -9,7 +9,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  Collapse,
   Divider,
   IconButton,
   Container,
@@ -22,7 +21,6 @@ import {
   Favorite as FavoriteIcon,
   Share as ShareIcon,
   ExpandMore as ExpandMoreIcon,
-  FiberManualRecord as FiberManualRecordIcon,
   Close as CloseIcon,
 } from "@mui/icons-material";
 
