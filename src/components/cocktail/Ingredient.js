@@ -1,16 +1,10 @@
-import {
-  Collapse,
-  Divider,
-  IconButton,
-  Typography,
-  Zoom,
-} from "@mui/material";
+import { Collapse, Divider, IconButton, Typography, Zoom } from "@mui/material";
 
 import React, { useEffect, useState } from "react";
 import { fetchIngredient } from "../../workers/CocktailService";
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import InfoIcon from '@mui/icons-material/Info';
+import InfoIcon from "@mui/icons-material/Info";
 
 import Image from "./Image";
 
@@ -29,18 +23,25 @@ export const Ingredient = ({ id, name, amount }) => {
   }, [id, name, amount]);
 
   return (
-    <div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <Typography variant="subtitle2" sx={{ mb: 2, lineHeight: "1.3", cursor:"default"}}>
-        <strong>{name}</strong> <InfoIcon fontSize="5px" color="disabled"/>
+    <div>
+      <Typography
+        onClick={() => setIsHovered(!isHovered)}
+        variant="subtitle2"
+        sx={{ mb: 2, lineHeight: "1.3", cursor: "pointer" }}
+      >
+        <strong>{name}</strong> <InfoIcon fontSize="5px" color="disabled" />
         <br />
         {amount}
       </Typography>
 
       {isHovered && (
-        <Zoom direction="up" timeout={700} in={isHovered} mountOnEnter unmountOnExit>
+        <Zoom
+          direction="up"
+          timeout={700}
+          in={isHovered}
+          mountOnEnter
+          unmountOnExit
+        >
           {ingredientData && (
             <div>
               <Image
@@ -51,7 +52,7 @@ export const Ingredient = ({ id, name, amount }) => {
                   width: "120px",
                 }}
               />
-              <Typography variant="caption" sx={{ }}>
+              <Typography variant="caption" sx={{}}>
                 {ingredientData.name}
               </Typography>
 
@@ -75,7 +76,7 @@ export const Ingredient = ({ id, name, amount }) => {
                     <IconButton
                       onClick={() => setIsExpanded(!isExpanded)}
                       aria-label="Show more"
-                      sx={{mb:2}}
+                      sx={{ mb: 2 }}
                     >
                       <KeyboardArrowDownIcon
                         sx={{
