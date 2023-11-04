@@ -33,9 +33,20 @@ function Navbar() {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleLinkClick = () => {
     setAnchorElNav(null);
+    scrollUp();
   };
+
+  const scrollUp = () => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth"
+      });
+    }, 150); // Adjust the delay as needed (in milliseconds)
+  }
 
   return (
     <AppBar position="fixed">
@@ -47,6 +58,7 @@ function Navbar() {
             noWrap
             component={Link}
             to={"/"}
+            onClick={scrollUp}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -84,7 +96,7 @@ function Navbar() {
                 horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              onClose={handleLinkClick}
               sx={{
                 display: { xs: "block", md: "none" },
               }}
@@ -94,7 +106,7 @@ function Navbar() {
                   key={page.name}
                   component={Link}
                   to={page.path}
-                  onClick={handleCloseNavMenu}
+                  onClick={handleLinkClick}
                 >
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
@@ -107,6 +119,7 @@ function Navbar() {
             noWrap
             component={Link}
             to={"/"}
+            onClick={scrollUp}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -130,7 +143,7 @@ function Navbar() {
             {pages.map((page) => (
               <Button
                 key={page.name}
-                onClick={handleCloseNavMenu}
+                onClick={handleLinkClick}
                 sx={{ my: 2, color: "white", display: "block", flex: "none" }}
                 component={Link}
                 to={page.path}
@@ -147,6 +160,7 @@ function Navbar() {
           </Box>
         </Toolbar>
       </Container>
+      
     </AppBar>
   );
 }
