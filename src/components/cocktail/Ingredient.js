@@ -5,9 +5,12 @@ import {
   Typography,
   Zoom,
 } from "@mui/material";
+
 import React, { useEffect, useState } from "react";
 import { fetchIngredient } from "../../workers/CocktailService";
+
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import InfoIcon from '@mui/icons-material/Info';
 
 import Image from "./Image";
 
@@ -30,8 +33,8 @@ export const Ingredient = ({ id, name, amount }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Typography variant="subtitle2" sx={{ mb: 2, lineHeight: "1.3" }}>
-        <strong>{name}</strong>
+      <Typography variant="subtitle2" sx={{ mb: 2, lineHeight: "1.3", cursor:"default"}}>
+        <strong>{name}</strong> <InfoIcon fontSize="5px" color="disabled"/>
         <br />
         {amount}
       </Typography>
