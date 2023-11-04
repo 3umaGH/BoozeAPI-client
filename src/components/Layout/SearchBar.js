@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { IconButton, TextField } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
+
+import SearchIcon from "@mui/icons-material/Search";
 
 const SearchBar = ({ iconColor }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,7 +13,7 @@ const SearchBar = ({ iconColor }) => {
 
     if (searchQuery.length > 3) {
       navigate(`/?name=${searchQuery}`);
-      window.location.reload()
+      window.location.reload();
     }
   };
 

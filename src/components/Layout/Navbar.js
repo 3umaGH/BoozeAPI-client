@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   AppBar,
   Box,
@@ -10,12 +11,13 @@ import {
   Button,
   MenuItem,
 } from "@mui/material";
+
 import {
   Menu as MenuIcon,
   LocalBar as LocalBarIcon,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
 
+import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
 const pages = [

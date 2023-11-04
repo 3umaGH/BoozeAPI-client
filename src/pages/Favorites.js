@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Container, Typography } from "@mui/material";
+
 import Layout from "../components/Layout/Layout";
 import CocktailListFavorites from "../components/cocktail/CocktailListFavorites";
 

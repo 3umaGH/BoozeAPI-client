@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import PopularCocktails from "./pages/PopularCocktails";
 import RandomCocktails from "./pages/RandomCocktails";
 import Favorites from "./pages/Favorites";

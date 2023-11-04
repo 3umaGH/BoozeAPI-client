@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { Typography } from "@mui/material";
+
 import CocktailCard from "./CocktailCard";
 import uuid from "react-uuid";
-import { Typography } from "@mui/material";
 
 const CocktailList = ({ fetchPromise, data, errorMessage }) => {
   const [cocktailData, setCocktailData] = useState();

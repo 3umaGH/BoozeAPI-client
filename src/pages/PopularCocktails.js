@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
-import { Box, Container, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
+
 import Layout from "../components/Layout/Layout";
 import CocktailList from "../components/cocktail/CocktailList";
-import { fetchPopularCocktails } from "../workers/CocktailService";
-import { useState } from "react";
 import QuerySearch from "../components/Layout/QuerySearch";
-import { useHistory } from "react-router-dom";
 
-import { fetchCocktailsBy } from "../workers/CocktailService";
+import {
+  fetchPopularCocktails,
+  fetchCocktailsBy,
+} from "../workers/CocktailService";
 
 function Main() {
   const [defaultData, setDefaultData] = useState();

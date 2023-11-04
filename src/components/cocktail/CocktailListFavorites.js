@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchCocktail } from "../../workers/CocktailService";
 
-import CocktailCard from "./CocktailCard";
 import withFavorites from "../hoc/WithFavorites";
-import uuid from "react-uuid";
 import CocktailList from "./CocktailList";
 
 const CocktailListFavorites = ({ favoritesList }) => {
