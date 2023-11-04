@@ -149,7 +149,7 @@ const QuerySearch = ({ queryCallback, emptySearchCallback }) => {
       >
         <Typography variant="subtitle">Search</Typography>
 
-        <Collapse in={!isCollapsed} timeout="auto" unmountOnExit>
+        <Collapse in={!isCollapsed} timeout={1200} unmountOnExit>
           <FormControl
             variant="standard"
             sx={{ m: 1, width: "100%", maxWidth: 250 }}

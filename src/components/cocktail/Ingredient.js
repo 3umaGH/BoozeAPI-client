@@ -37,12 +37,13 @@ export const Ingredient = ({ id, name, amount }) => {
       </Typography>
 
       {isHovered && (
-        <Zoom direction="up" in={isHovered} mountOnEnter unmountOnExit>
+        <Zoom direction="up" timeout={700} in={isHovered} mountOnEnter unmountOnExit>
           {ingredientData && (
             <div>
               <Image
                 src={ingredientData.image}
                 alt={ingredientData.name}
+                minSkeletonHeight={120}
                 style={{
                   width: "120px",
                 }}
