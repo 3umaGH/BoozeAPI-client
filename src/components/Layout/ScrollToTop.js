@@ -1,5 +1,5 @@
 import { Box, IconButton, Paper } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
@@ -37,7 +37,7 @@ export default function ScrollToTop() {
       sx={{
         position: "fixed",
         bottom: 20,
-        right: 50,
+        right: 20,
       }}
     >
       {isVisible && (
