@@ -45,7 +45,7 @@ function Navbar() {
         left: 0,
         behavior: "smooth"
       });
-    }, 150); // Adjust the delay as needed (in milliseconds)
+    }, 150);
   }
 
   return (
