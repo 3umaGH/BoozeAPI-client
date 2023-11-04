@@ -61,7 +61,7 @@ const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
 
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2} justifyContent="center">
-              <Grid item md={6} align="center">
+              <Grid item lg={6} align="center">
                 <Typography variant="h4" sx={{ mb: 0.5 }}>
                   {drink.name}
                 </Typography>
@@ -69,8 +69,8 @@ const Cocktail = ({ drink, toggleFavorite, isInFavorites }) => {
                 <Container sx={{ mb: 1 }}>
                   <Image
                     style={{
-                      width: "100%",
-                      maxWidth: "350px",
+                      width: "90%",
+                      maxWidth: "400px",
                       borderRadius: "5%",
                       border: "1px solid #999",
                       backgroundColor: "rgba(217, 244, 255, 0.6)",

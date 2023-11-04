@@ -39,6 +39,10 @@ function Search() {
 
   return (
     <Layout>
+      <Container align="center" sx={{ mt: 3 }}>
+        <Typography variant="h6">Search by parameters</Typography>
+      </Container>
+
       <QuerySearch queryCallback={handleSearchQueryUpdate} />
 
       <Box

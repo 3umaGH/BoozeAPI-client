@@ -111,8 +111,8 @@ const QuerySearch = ({ queryCallback }) => {
   }, [searchParams]);
 
   return (
-    <Container align="center" sx={{ mt: -2 }}>
-      <Paper
+    <Container align="center" sx={{  }}>
+      <Paper elevation={0}
         sx={{
           backgroundColor: "rgba(250, 250, 250,1)",
           mb: 2,
