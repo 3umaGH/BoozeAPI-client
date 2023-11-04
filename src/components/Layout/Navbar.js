@@ -22,7 +22,6 @@ const pages = [
   { name: "Popular Cocktails", path: "/" },
   { name: "Random Cocktails", path: "/random" },
   { name: "Favorite Cocktails", path: "/favorites" },
-  { name: "Search", path: "/search" },
 ];
 
 function Navbar() {

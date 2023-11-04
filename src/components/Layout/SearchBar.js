@@ -9,25 +9,29 @@ const SearchBar = ({ iconColor }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate(`/search?name=${searchQuery}`);
+
+    if (searchQuery.length > 3) {
+      navigate(`/?name=${searchQuery}`);
+      window.location.reload()
+    }
   };
 
   return (
-      <form onSubmit={submitHandler}>
-        <TextField
-          id="search-bar"
-          className="text"
-          onInput={(e) => setSearchQuery(e.target.value)}
-          required
-          placeholder="Search cocktails"
-          variant="outlined"
-          size="small"
-          sx={{ borderRadius: "5px", backgroundColor: "white" }}
-        />
-        <IconButton type="submit" aria-label="search" sx={{ ml: -5 }}>
-          <SearchIcon style={{ fill: `${iconColor}` }} />
-        </IconButton>
-      </form>
+    <form onSubmit={submitHandler}>
+      <TextField
+        id="search-bar"
+        className="text"
+        onInput={(e) => setSearchQuery(e.target.value)}
+        required
+        placeholder="Search cocktails"
+        variant="outlined"
+        size="small"
+        sx={{ borderRadius: "5px", backgroundColor: "white" }}
+      />
+      <IconButton type="submit" aria-label="search" sx={{ ml: -5 }}>
+        <SearchIcon style={{ fill: `${iconColor}` }} />
+      </IconButton>
+    </form>
   );
 };
 

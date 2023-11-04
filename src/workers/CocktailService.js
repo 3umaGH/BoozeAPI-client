@@ -25,12 +25,16 @@ export const fetchCocktailsByName = async (name) => {
 };
 
 export const fetchCocktailsBy = async (
+  name,
   category,
   glass,
   ingredients,
   alcoholic
 ) => {
   let queryParams = [];
+
+  if (name !== undefined && name !== "")
+    queryParams.push(`name=${encodeURIComponent(name)}`);
 
   if (category !== undefined && category !== "")
     queryParams.push(`category=${encodeURIComponent(category)}`);
