@@ -18,12 +18,6 @@ export const fetchCocktail = async (useRandom, ids) => {
   return fetchData(link);
 };
 
-export const fetchCocktailsByName = async (name) => {
-  const link = `${BASE_PATH}/cocktail/?name=${name}`;
-
-  return fetchData(link);
-};
-
 export const fetchCocktailsBy = async (
   name,
   category,
