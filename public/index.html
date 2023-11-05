@@ -9,6 +9,17 @@
       name="Explore an exquisite collection of cocktail recipes, garnishes, and expert tips for crafting the perfect drink."
       content="Explore an exquisite collection of cocktail recipes, garnishes, and expert tips for crafting the perfect drink."
     />
+
+    <meta property="og:title" content="BoozeAPI: Mix, Sip, Enjoy" />
+    <meta
+      property="og:description"
+      content="Explore an exquisite collection of cocktail recipes, garnishes, and expert tips for crafting the perfect drink."
+    />
+    <meta
+      property="og:image"
+      content="https://boozeapi.com/og.jpg"
+    />
+
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -26,6 +37,21 @@
     -->
     <title>BoozeAPI: Mix, Sip, Enjoy</title>
   </head>
+
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-2F34VXJKRN"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-2F34VXJKRN");
+  </script>
 
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
