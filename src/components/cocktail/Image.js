@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
-const Image = ( {minSkeletonHeight = 200, ...props}) => {
+const Image = ({ minSkeletonHeight = 200, ...props }) => {
   const [imageLoaded, setLoaded] = useState(false);
 
   const loadHandler = () => {
     setLoaded(true);
   };
-
-  useEffect(() => {});
 
   const imageStyle = imageLoaded ? props.style : { display: "none" };
 
@@ -22,10 +20,10 @@ const Image = ( {minSkeletonHeight = 200, ...props}) => {
       )}
 
       <img
+        onLoad={loadHandler}
         src={props.src}
         alt={props.alt}
         style={imageStyle}
-        onLoad={loadHandler}
       ></img>
     </div>
   );

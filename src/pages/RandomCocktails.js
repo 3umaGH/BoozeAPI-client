@@ -30,7 +30,6 @@ const RandomCocktails = () => {
   const loadMore = () => {
     fetchRandomCocktails().then((data) => {
       setCocktailData((prevData) => [...prevData, ...data]);
-
     });
   };
 

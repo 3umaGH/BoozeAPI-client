@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 
 import Layout from "../components/Layout/Layout";
 import CocktailList from "../components/cocktail/CocktailList";
 import QuerySearch from "../components/Layout/QuerySearch";
+
+import { useLocation } from "react-router-dom";
 
 import {
   fetchPopularCocktails,
@@ -13,12 +15,12 @@ import {
 function Main() {
   const [defaultData, setDefaultData] = useState();
   const [cocktailData, setCocktailData] = useState();
-
   const [isSearching, setSearching] = useState(false);
+  const location = useLocation();
 
-  const revertToDefault = () => {
+  const revertToDefault = useCallback(() => {
     setCocktailData(defaultData);
-  };
+  }, [defaultData]);
 
   const handleSearchQueryUpdate = (
     name,
@@ -43,6 +45,10 @@ function Main() {
       setCocktailData(data);
     });
   }, []);
+
+  useEffect(() => {
+   revertToDefault();
+  }, [location, revertToDefault]);
 
   const loadingElement = <Typography variant="h5">Loading...</Typography>;
 
