@@ -1,4 +1,4 @@
-const BASE_PATH = `https://www.boozeapi.com/api`;
+const BASE_PATH = process.env.REACT_APP_API;
 
 const fetchData = async (link) => {
   const response = await fetch(link);
