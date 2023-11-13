@@ -1,5 +1,5 @@
-Cocktail browser website using https://www.thecocktaildb.com/ API.
+Cocktail browser website, uses my Node.js api.
 
 Practicing using Promises in JS. Built using React and MUI.
 
-Live: https://cocktail-ingredients-chi.vercel.app/
+Live: https://boozeapi.com/
