@@ -1,4 +1,11 @@
-import { Collapse, Divider, IconButton, Typography, Zoom } from "@mui/material";
+import {
+  Collapse,
+  Divider,
+  IconButton,
+  Typography,
+  Zoom,
+  Box,
+} from "@mui/material";
 
 import React, { useEffect, useState } from "react";
 import { fetchIngredient } from "../../workers/CocktailService";
@@ -18,7 +25,6 @@ export const Ingredient = ({ id, name, amount }) => {
     fetchIngredient(id).then((data) => {
       // Prepare ingredient data from API
       setIngredientData(data);
-      console.log(data);
     });
   }, [id, name, amount]);
 
@@ -44,14 +50,16 @@ export const Ingredient = ({ id, name, amount }) => {
         >
           {ingredientData && (
             <div>
-              <Image
-                src={ingredientData.image}
-                alt={ingredientData.name}
-                minSkeletonHeight={120}
-                style={{
-                  width: "120px",
-                }}
-              />
+              <Box sx={{ maxWidth: "120px" }}>
+                <Image
+                  src={ingredientData.image}
+                  alt={ingredientData.name}
+                  minSkeletonHeight={120}
+                  style={{
+                    width: "120px",
+                  }}
+                />
+              </Box>
               <Typography variant="caption" sx={{}}>
                 {ingredientData.name}
               </Typography>
