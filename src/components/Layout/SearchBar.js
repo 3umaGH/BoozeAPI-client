@@ -11,7 +11,7 @@ const SearchBar = ({ iconColor }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (searchQuery.length > 3) {
+    if (searchQuery.length > 3) { // API limits to at least 3 characters in order to search.
       navigate(`/?name=${searchQuery}`);
       window.location.reload();
     }
