@@ -23,7 +23,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm run build && npx http-server ./build --port $PORT",
+    "start": "npm run build && npx http-server ./build --proxy http://localhost:$PORT/index.html? -p $PORT -a ::",
     "build": "react-scripts build",
     "dev": "react-scripts start",
     "test": "react-scripts test",
