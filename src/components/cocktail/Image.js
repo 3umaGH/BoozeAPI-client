@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Skeleton from "@mui/material/Skeleton";
 
 const Image = ({ minSkeletonHeight = 200, ...props }) => {
-  const [imageLoaded, setLoaded] = useState(false);
+  const [imageLoaded, setLoaded] = useState(true);
 
   const loadHandler = () => {
     setLoaded(true);
